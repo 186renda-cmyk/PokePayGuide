@@ -1,0 +1,3 @@
+# Cloudflare Pages Redirect Rules
+/go/pokepay https://app.pokepay.cc/pages/invitation/regist?r=365888 302
+/go/okx https://www.hfivpyichgod.com/zh-hans/join?channelId=ACE529411 302
