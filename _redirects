@@ -1,3 +1,12 @@
 # Cloudflare Pages Redirect Rules
+# 核心注册/充值跳转
 /go/pokepay https://app.pokepay.cc/pages/invitation/regist?r=365888 302
 /go/okx https://www.hfivpyichgod.com/zh-hans/join?channelId=ACE529411 302
+
+# APP 下载跳转 (新增)
+/go/ios-store https://apps.apple.com/hk/app/id6741506101 302
+/go/google-play https://play.google.com/store/apps/details?id=uni.UNIE937D15 302
+/go/apk https://app.pokepay.cc/app/pokepay.apk 302
+
+# 辅助跳转 (ID获取)
+/go/apple-id https://global-apple-id.top/ 302
