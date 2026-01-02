@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PokePay绑定支付宝教程：2026最新Visa卡内绑支付宝图文+视频指南</title>
+  <meta name="description" content="2026最新教程：如何将PokePay虚拟Visa卡绑定到支付宝。内含高清视频演示，手把手教你实现USDT日常消费，解决海外Visa卡绑定支付宝失败问题。">
+  <meta name="keywords" content="PokePay绑定支付宝, 支付宝绑定Visa卡, 虚拟信用卡支付宝消费, USDT支付宝消费, PokePay使用教程, 支付宝外卡支付">
+  <link rel="canonical" href="https://pokepayguide.top/articles/how-to-bind-pokepay-to-alipay.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%23059669%22/><path d=%22M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z%22 fill=%22white%22/></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #f8fafc; color: #334155; }
+    .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.8); }
+    .step-card { transition: all 0.3s ease; border: 1px solid #e2e8f0; }
+    .step-card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1); border-color: #10b981; }
+    .breadcrumb a { color: #64748b; transition: color 0.2s; }
+    .breadcrumb a:hover { color: #059669; }
+    
+    /* Video Player Styles */
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem; background: #0f172a; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    .video-cover { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; cursor: pointer; }
+    .video-cover.hidden { opacity: 0; pointer-events: none; }
+    .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; background: rgba(16, 185, 129, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); z-index: 10; }
+    .play-btn:hover { transform: translate(-50%, -50%) scale(1.1); background: #10b981; box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.2); }
+    .play-btn svg { width: 36px; height: 36px; fill: white; margin-left: 5px; }
+    video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    /* Lazy Load Blur Effect */
+    .lazy-image { opacity: 0; transition: opacity 0.5s ease-in-out; }
+    .lazy-image.loaded { opacity: 1; }
+  </style>
+</head>
+<body class="font-sans pt-24 pb-24 md:pb-0">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
+      
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-md"><rect width="100" height="100" rx="24" fill="#059669"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">Pokepay<span class="text-emerald-600">Guide</span></span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1 group-hover:text-emerald-500 transition-colors">Official Partner</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
+        
+        <a href="/index.html#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💠</span> 平台优势
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">🧭</span> 新手指南
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#okx-tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">⚡</span> USDT充值
+        </a>
+
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+
+        <a href="/index.html#articles" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">📑</span> 深度文章
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#download" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <svg class="w-4 h-4 text-emerald-600 group-hover:-translate-y-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            APP下载
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#faq" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💡</span> 常见问题
+        </a>
+
+      </div>
+
+      <div class="hidden md:flex items-center gap-4">
+        <a href="/go/okx" target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span class="group-hover:translate-x-0.5 transition-transform">USDT买币</span>
+        </a>
+        <a href="/go/pokepay" target="_blank" rel="nofollow sponsored noopener noreferrer" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+            <span class="relative">立即开卡</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+    <nav class="flex text-xs font-medium breadcrumb text-slate-500">
+      <a href="/" class="hover:underline">首页</a>
+      <span class="mx-2">/</span>
+      <a href="/index.html#tutorial" class="hover:underline">教程指南</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-800">支付宝绑定教程</span>
+    </nav>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+      
+      <!-- Content Column -->
+      <main class="lg:col-span-8">
+        <header class="mb-10">
+          <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-6 leading-tight">PokePay 绑定支付宝全流程：<br><span class="text-emerald-600">USDT 变身日常消费神器</span></h1>
+          
+          <div class="flex items-center gap-4 text-sm text-slate-500 mb-8">
+            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 更新于 2026.01.02</span>
+            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg> 2.5k 阅读</span>
+          </div>
+
+          <div class="prose max-w-none text-slate-600 leading-relaxed bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <p>
+              许多用户持有 USDT 但苦于无法直接消费。通过 <strong>PokePay 虚拟 Visa 卡</strong>，你可以轻松将其绑定到<strong>支付宝 (Alipay)</strong>。
+            </p>
+            <p class="mt-4">
+              绑定成功后，无论是<strong>淘宝购物、扫码支付、还是点外卖</strong>，都可以直接使用卡内的美元余额（自动汇率转换），真正实现加密资产的日常化使用。
+            </p>
+          </div>
+        </header>
+
+        <!-- Video Section -->
+        <section class="mb-16">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <span class="w-1.5 h-8 bg-emerald-500 rounded-full"></span>
+            视频演示：1分钟学会绑定
+          </h2>
+          <div class="video-container group">
+            <img 
+              data-src="/images/add-pockepay-visa-to-alipay-thumb.jpg" 
+              alt="PokePay绑定支付宝视频封面" 
+              class="lazy-image video-cover"
+              width="1280"
+              height="720"
+            >
+            <div class="play-btn" onclick="playVideo(this)">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <video id="tutorial-video" controls class="hidden" preload="none">
+              <source src="/videos/pockepay-bind-alipay.mp4" type="video/mp4">
+              您的浏览器不支持 HTML5 视频。
+            </video>
+            <div class="absolute bottom-4 left-4 bg-black/60 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm pointer-events-none">
+              🎥 2026 最新录制
+            </div>
+          </div>
+          <p class="text-xs text-center text-slate-400 mt-3">点击播放按钮观看完整操作流程</p>
+        </section>
+
+        <!-- Step by Step -->
+        <div class="space-y-12 relative">
+          <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-200/60 -z-10 md:left-8"></div>
+
+          <!-- Step 1 -->
+          <div class="relative pl-16 md:pl-24">
+            <div class="absolute left-0 top-0 w-12 h-12 md:w-16 md:h-16 bg-white border-4 border-emerald-50 text-emerald-600 rounded-full flex items-center justify-center font-black text-xl shadow-sm z-10">1</div>
+            
+            <h3 class="text-xl font-bold text-slate-900 mb-4">PokePay 端：获取卡片信息</h3>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 step-card">
+              <ol class="space-y-4 list-decimal list-inside text-sm text-slate-600 font-medium">
+                <li>打开 <a href="/go/pokepay" class="text-emerald-600 hover:underline">PokePay App</a>，确保账户内已有余额（建议 > 5 USDT 以通过验证）。</li>
+                <li>点击底部的 <strong>"卡片 (Card)"</strong> 选项卡。</li>
+                <li>点击卡面上的 <strong>"卡片信息 (Card Info)"</strong> 按钮。</li>
+                <li>输入支付密码或进行生物验证。</li>
+                <li class="bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-emerald-800">
+                  <strong>关键信息：</strong> 复制完整的 <span class="font-bold">16位卡号</span>，并记下 <span class="font-bold">有效期 (Exp Date)</span> 和 <span class="font-bold">CVV 安全码</span>。
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative pl-16 md:pl-24">
+            <div class="absolute left-0 top-0 w-12 h-12 md:w-16 md:h-16 bg-white border-4 border-blue-50 text-blue-600 rounded-full flex items-center justify-center font-black text-xl shadow-sm z-10">2</div>
+            
+            <h3 class="text-xl font-bold text-slate-900 mb-4">支付宝端：添加银行卡</h3>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 step-card">
+              <ol class="space-y-4 list-decimal list-inside text-sm text-slate-600 font-medium">
+                <li>打开支付宝，点击右下角 <strong>"我的"</strong> -> <strong>"银行卡"</strong>。</li>
+                <li>点击页面底部的 <strong>"+ 添加银行卡"</strong>。</li>
+                <li>直接粘贴刚才复制的 <span class="font-bold text-slate-900">PokePay 卡号</span>，点击下一步。</li>
+                <li>
+                  支付宝会自动识别为 "Visa 信用卡"。
+                  <br>
+                  <span class="text-xs text-slate-500 block mt-1">注意：如果识别失败，请手动选择 "Visa"。</span>
+                </li>
+                <li>填写 <span class="font-bold">有效期</span> 和 <span class="font-bold">CVV</span>。</li>
+                <li>点击 <strong>"同意协议并添加"</strong>。</li>
+              </ol>
+              <div class="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-start gap-3">
+                <span class="text-xl">💡</span>
+                <p class="text-xs text-blue-800 leading-relaxed">
+                  绑定成功后，你可以尝试给手机充值 10 元话费进行测试。如果支付成功，说明卡片已完全激活。
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FAQ -->
+        <div class="mt-20 border-t border-slate-200 pt-12">
+          <h2 class="text-2xl font-bold text-slate-900 mb-8">常见问题 (FAQ)</h2>
+          <div class="space-y-4">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+              <h4 class="font-bold text-slate-800 mb-2">Q: 绑定支付宝需要手续费吗？</h4>
+              <p class="text-sm text-slate-500">
+                支付宝端绑定不收费。但在消费时，若单笔金额超过 200 元人民币，支付宝可能会收取 3% 的国际卡手续费（此费用由支付宝收取，与 PokePay 无关）。200 元以下通常免手续费。
+              </p>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+              <h4 class="font-bold text-slate-800 mb-2">Q: 为什么提示“当前交易不支持”？</h4>
+              <p class="text-sm text-slate-500">
+                并非所有商家都支持外卡（Visa/Mastercard）支付。通常天猫、淘宝、京东、美团以及大部分线下扫码（商家码）都支持，但部分个人收款码可能不支持。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 bg-slate-50 rounded-2xl p-6 border border-slate-200">
+          <h3 class="font-bold text-slate-900 mb-4">更多实用教程</h3>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/articles/pokepay-usdt-recharge.html" class="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> 如何给 PokePay 充值 USDT？</a></li>
+            <li><a href="/articles/how-to-subscribe-x-premium-with-pokepay.html" class="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> 订阅 Twitter Blue (X Premium) 教程</a></li>
+          </ul>
+        </div>
+
+      </main>
+
+      <!-- Sidebar Column -->
+      <aside class="lg:col-span-4 mt-12 lg:mt-0 space-y-8">
+        
+        <!-- Sales Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 sticky top-24">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">💳</div>
+            <h3 class="text-xl font-bold text-slate-900">PokePay 虚拟卡</h3>
+            <p class="text-sm text-slate-500 mt-2">一张卡，打通 Web3 与现实世界</p>
+          </div>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-sm text-slate-600">
+              <svg class="w-5 h-5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>支持支付宝/微信/美团消费</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-slate-600">
+              <svg class="w-5 h-5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>订阅 ChatGPT/Midjourney/X</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm text-slate-600">
+              <svg class="w-5 h-5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              <span>USDT 1:1 实时汇率兑换</span>
+            </li>
+          </ul>
+
+          <div class="space-y-3">
+            <a href="/go/pokepay" target="_blank" rel="nofollow sponsored noopener noreferrer" class="block w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold rounded-xl transition shadow-lg shadow-emerald-200 hover:shadow-emerald-300 transform hover:-translate-y-0.5">
+              立即免费开卡
+            </a>
+            <p class="text-[10px] text-center text-slate-400">🎁 新用户注册立享 0 月费权益</p>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-16 border-t border-emerald-900/30 relative overflow-hidden mt-20">
+      
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+  
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          
+          <div class="space-y-6">
+            <div class="flex flex-col items-start gap-3">
+              <div class="flex items-center gap-2 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-8 h-8 fill-current text-emerald-500"><rect width="100" height="100" rx="24" fill="currentColor"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
+                  <span class="text-xl font-bold tracking-tight">Pokepay<span class="text-emerald-500">Guide</span></span>
+              </div>
+              <div class="px-2 py-0.5 rounded border border-emerald-500/30 bg-emerald-500/10 text-[10px] font-bold text-emerald-400 uppercase tracking-wider shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                  Official Partner
+              </div>
+            </div>
+            <p class="text-sm text-slate-500 leading-relaxed">
+              Pokepay 官方授权服务商。一站式打通 USDT 与 Visa 支付网络，无缝解决 ChatGPT、OnlyFans 等海外订阅难题，为您的数字资产提供银行级安全保障。
+            </p>
+            <div class="flex gap-3 pt-2 opacity-80">
+               <div class="text-[10px] font-bold text-slate-400 border border-slate-800 bg-slate-900 px-2 py-1 rounded flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>VISA</div>
+               <div class="text-[10px] font-bold text-slate-400 border border-slate-800 bg-slate-900 px-2 py-1 rounded flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>USDT</div>
+               <div class="text-[10px] font-bold text-slate-400 border border-slate-800 bg-slate-900 px-2 py-1 rounded flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>MSB</div>
+            </div>
+          </div>
+  
+          <div>
+            <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">产品与服务</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
+              <li><a href="/index.html#download" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> APP 下载专区</a></li>
+              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
+              <li><a href="/index.html#okx-tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> USDT 充值指南</a></li>
+              <li><a href="/go/pokepay" target="_blank" rel="nofollow sponsored noopener noreferrer" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 立即开卡 (Web)</a></li>
+            </ul>
+          </div>
+  
+          <div>
+            <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">高频实战教程</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="/index.html#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
+              <li><a href="/articles/pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
+              <li><a href="/index.html#faq" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 解决 Visa 支付被拒</a></li>
+              <li><a href="/articles/pokepay-virtual-card-guide.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 订阅 ChatGPT Plus</a></li>
+            </ul>
+          </div>
+  
+          <div>
+            <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">合规与支持</h4>
+            <div class="text-xs text-slate-500 space-y-4 leading-relaxed">
+              <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
+                  <strong class="text-emerald-500 block mb-1">官方合作渠道：</strong>
+                  本站为 Pokepay 官方授权中文区推广合作伙伴。提供的所有注册链接均直连官方数据库，安全可靠。
+              </div>
+              <p>
+                <strong class="text-slate-400">风险披露：</strong>
+                加密资产属于高风险投资。卡片资金由持牌金融机构托管，请确保遵守当地法律法规使用服务。
+              </p>
+              <a href="mailto:support@pokepayguide.top" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition mt-2 border-b border-dashed border-slate-700 pb-0.5">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  联系合作支持 (Support)
+              </a>
+            </div>
+          </div>
+        </div>
+  
+        <div class="pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
+          <div class="flex items-center gap-3">
+              <span>&copy; 2026 PokepayGuide.top. All rights reserved.</span>
+              <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+              <span class="font-mono text-emerald-600/70 bg-emerald-950/30 px-2 py-0.5 rounded border border-emerald-900/50">Partner ID: 365888</span>
+          </div>
+          <div class="flex gap-6">
+              <a href="#" class="hover:text-slate-400 transition">隐私政策</a>
+              <a href="#" class="hover:text-slate-400 transition">服务条款</a>
+              <a href="/sitemap.xml" class="hover:text-slate-400 transition">Sitemap</a>
+          </div>
+        </div>
+      </div>
+  </footer>
+
+  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
+    <div class="flex gap-3">
+      <a href="/go/okx" rel="nofollow sponsored noopener noreferrer" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
+      <a href="/go/pokepay" rel="nofollow sponsored noopener noreferrer" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
+    </div>
+  </div>
+
+  <script>
+    function playVideo(btn) {
+      const container = btn.parentElement;
+      const video = container.querySelector('video');
+      const cover = container.querySelector('.video-cover');
+      
+      btn.style.display = 'none';
+      cover.style.display = 'none';
+      video.classList.remove('hidden');
+      video.play();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const lazyImages = document.querySelectorAll(".lazy-image");
+
+      if ("IntersectionObserver" in window) {
+        const imageObserver = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              const image = entry.target;
+              image.src = image.dataset.src;
+              image.onload = () => image.classList.add('loaded');
+              imageObserver.unobserve(image);
+            }
+          });
+        });
+
+        lazyImages.forEach(function(image) {
+          imageObserver.observe(image);
+        });
+      } else {
+        lazyImages.forEach(function(image) {
+          image.src = image.dataset.src;
+          image.classList.add('loaded');
+        });
+      }
+    });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "如何将PokePay Visa卡绑定到支付宝",
+    "description": "2026最新教程：使用PokePay虚拟信用卡绑定支付宝(Alipay)的详细步骤。",
+    "step": [
+      {"@type": "HowToStep", "name": "获取卡片信息", "text": "在PokePay App中点击卡片详情，获取16位卡号、有效期和CVV安全码。"},
+      {"@type": "HowToStep", "name": "进入支付宝绑卡页面", "text": "打开支付宝App，点击'我的' -> '银行卡' -> '添加银行卡'。"},
+      {"@type": "HowToStep", "name": "输入卡号", "text": "粘贴PokePay卡号，支付宝会自动识别为Visa卡。"},
+      {"@type": "HowToStep", "name": "完成验证", "text": "输入有效期和CVV，点击同意协议即可完成绑定。"}
+    ]
+  }
+  </script>
+</body>
+</html>
