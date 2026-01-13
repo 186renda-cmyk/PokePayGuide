@@ -93,7 +93,7 @@
 
         <div class="w-[1px] h-3 bg-slate-300/50"></div>
 
-        <a href="/#articles" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/articles/index.html" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">📑</span> 深度文章
         </a>
         
@@ -122,6 +122,25 @@
   </nav>
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav aria-label="Breadcrumb" class="flex text-sm font-medium text-slate-500 mb-8">
+      <ol class="flex items-center space-x-2">
+        <li>
+          <a href="/" class="hover:text-emerald-600 hover:underline transition-colors flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span class="sr-only">首页</span>
+          </a>
+        </li>
+        <li>
+          <span class="mx-1 text-slate-300">/</span>
+        </li>
+        <li aria-current="page" class="text-slate-800 font-semibold">
+          教程归档
+        </li>
+      </ol>
+    </nav>
+
     <header class="text-center mb-16">
       <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">📚 所有教程 & 指南</h1>
       <p class="text-slate-500">共收录 9 篇实战文章，助你玩转全球支付</p>
@@ -129,7 +148,7 @@
 
     <div class="grid md:grid-cols-2 gap-6">
       
-      <a href="articles/how-to-subscribe-x-premium-with-pokepay.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group ring-2 ring-emerald-50 hover:ring-emerald-100">
+      <a href="how-to-subscribe-x-premium-with-pokepay.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group ring-2 ring-emerald-50 hover:ring-emerald-100">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded flex items-center gap-1">
             <span class="relative flex h-2 w-2">
@@ -144,7 +163,7 @@
         <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">含视频演示！手把手教你解决推特蓝标认证支付失败问题。无需海外信用卡，PokePay 虚拟卡一键搞定。</p>
       </a>
 
-      <a href="articles/how-to-bind-pokepay-to-alipay.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="how-to-bind-pokepay-to-alipay.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded flex items-center gap-1">
              <span class="text-lg">🇨🇳</span> 支付宝绑定
@@ -155,7 +174,7 @@
         <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">USDT 也能扫码支付？教你如何将 Visa 卡绑定支付宝，实现国内日常消费无障碍。</p>
       </a>
       
-      <a href="articles/pokepay-usdt-recharge.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="pokepay-usdt-recharge.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded flex items-center gap-1">
             <span class="relative flex h-2 w-2">
@@ -170,7 +189,7 @@
         <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">拒绝冻卡！图文详解欧易 (OKX) 购币、选链 (TRC20)、提币至 PokePay 全流程。包含新手必读的避坑小贴士。</p>
       </a>
       
-      <a href="articles/pokepay-virtual-card-guide.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="pokepay-virtual-card-guide.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded">新手必看</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -179,7 +198,7 @@
         <p class="text-sm text-slate-500 line-clamp-2">手把手教你注册、KYC认证、开卡。新手入门第一课。</p>
       </a>
 
-      <a href="articles/pokepay-bind-paypal-chatgpt.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="pokepay-bind-paypal-chatgpt.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded">高阶技巧</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -188,7 +207,7 @@
         <p class="text-sm text-slate-500 line-clamp-2">直接绑卡失败？教你用“曲线救国”方案，成功率 99%。</p>
       </a>
 
-      <a href="articles/okx-usdt-topup-trc20.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="okx-usdt-topup-trc20.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded">充值指南</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -197,7 +216,7 @@
         <p class="text-sm text-slate-500 line-clamp-2">解决“怎么入金”的问题。注册、买币、提币保姆级教学。</p>
       </a>
 
-      <a href="articles/subscription-failure-checklist.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="subscription-failure-checklist.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-red-50 text-red-700 text-xs font-bold rounded">故障排查</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -206,7 +225,7 @@
         <p class="text-sm text-slate-500 line-clamp-2">遇到 Card Declined 怎么办？余额、IP、地址全方位排查。</p>
       </a>
 
-      <a href="articles/pokepay-kaopu-ma.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="pokepay-kaopu-ma.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded">深度评测</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -215,7 +234,7 @@
         <p class="text-sm text-slate-500 line-clamp-2">深度解析金融牌照、资金安全与合规性。拒绝资金盘。</p>
       </a>
 
-      <a href="articles/pokepay-fees-and-limits.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
+      <a href="pokepay-fees-and-limits.html" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group">
         <div class="flex items-center justify-between mb-4">
           <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded">费用说明</span>
           <span class="text-xs text-slate-400">2025.12.19</span>
@@ -269,9 +288,9 @@
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">高频实战教程</h4>
             <ul class="space-y-3 text-sm">
               <li><a href="/#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
-              <li><a href="articles/pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
+              <li><a href="pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
               <li><a href="/#faq" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 解决 Visa 支付被拒</a></li>
-              <li><a href="articles/pokepay-virtual-card-guide.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 订阅 ChatGPT Plus</a></li>
+              <li><a href="pokepay-virtual-card-guide.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 订阅 ChatGPT Plus</a></li>
             </ul>
           </div>
   
@@ -322,7 +341,7 @@
       "@type": "CollectionPage",
       "name": "Pokepay 教程归档 - 所有实战指南",
       "description": "PokepayGuide 所有实战教程汇总：从开卡、充值、绑定支付宝到 ChatGPT 订阅排查。",
-      "url": "https://pokepayguide.top/archive.html",
+      "url": "https://pokepayguide.top/articles/index.html",
       "isPartOf": {
         "@type": "WebSite",
         "name": "PokepayGuide",
@@ -391,6 +410,26 @@
           }
         ]
       }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://pokepayguide.top/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "教程归档",
+          "item": "https://pokepayguide.top/articles/index.html"
+        }
+      ]
     }
   </script>
 </body>
