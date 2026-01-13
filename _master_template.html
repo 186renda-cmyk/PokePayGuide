@@ -48,12 +48,29 @@
   </nav>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-    <nav class="flex text-xs font-medium breadcrumb text-slate-500">
-      <a href="/" class="hover:underline">首页</a>
-      <span class="mx-2">/</span>
-      <a href="/archive.html" class="hover:underline">教程归档</a>
-      <span class="mx-2">/</span>
-      <span class="text-slate-800">【这里填文章标题】</span>
+    <nav aria-label="Breadcrumb" class="flex text-sm font-medium text-slate-500 my-4">
+      <ol class="flex items-center space-x-2">
+        <li>
+          <a href="/" class="hover:text-emerald-600 hover:underline transition-colors flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span class="sr-only">首页</span>
+          </a>
+        </li>
+        <li>
+          <span class="mx-1 text-slate-300">/</span>
+        </li>
+        <li>
+          <a href="/archive.html" class="hover:text-emerald-600 hover:underline transition-colors">教程归档</a>
+        </li>
+        <li>
+          <span class="mx-1 text-slate-300">/</span>
+        </li>
+        <li aria-current="page" class="text-slate-800 font-semibold truncate max-w-[150px] sm:max-w-none">
+          【文章标题】
+        </li>
+      </ol>
     </nav>
   </div>
 

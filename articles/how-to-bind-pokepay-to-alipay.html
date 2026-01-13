@@ -60,30 +60,33 @@
 
   <!-- Breadcrumb -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3 group">
-        <div class="relative w-10 h-10 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform duration-200">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-md"><rect width="100" height="100" rx="24" fill="#059669"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
-        </div>
-        <div class="flex flex-col">
-            <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">Pokepay<span class="text-emerald-600">Guide</span></span>
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1 group-hover:text-emerald-500 transition-colors">Official Partner</span>
-        </div>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600">
-        <a href="/index.html#features" class="hover:text-emerald-600 transition">优势</a>
-        <a href="/index.html#tutorial" class="hover:text-emerald-600 transition">教程</a>
-        <a href="/index.html#okx-tutorial" class="hover:text-emerald-600 transition">充值</a>
-        <a href="/index.html#faq" class="hover:text-emerald-600 transition">问答</a>
-      </div>
-      <div class="hidden md:flex items-center gap-4">
-        <a href="/index.html#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group"> <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span> USDT买币 </a>
-        <a href="/index.html#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden"> <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span> <span class="relative">立即开卡</span> </a>
-      </div>
-    </div>
-  </nav>
-  </div>
+
+    <nav aria-label="Breadcrumb" class="flex text-sm font-medium text-slate-500 my-4">
+      <ol class="flex items-center space-x-2">
+        <li>
+          <a href="/" class="hover:text-emerald-600 hover:underline transition-colors flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            <span class="sr-only">首页</span>
+          </a>
+        </li>
+        <li>
+          <span class="mx-1 text-slate-300">/</span>
+        </li>
+        <li>
+          <a href="/archive.html" class="hover:text-emerald-600 hover:underline transition-colors">教程归档</a>
+        </li>
+        <li>
+          <span class="mx-1 text-slate-300">/</span>
+        </li>
+        <li aria-current="page" class="text-slate-800 font-semibold truncate max-w-[150px] sm:max-w-none" title="PokePay 绑定支付宝全流程：USDT 变身日常消费神器">
+          PokePay 绑定支付宝全流程：USDT 变身日常消费神器
+        </li>
+      </ol>
+    </nav>
+    
+</div>
 
   <!-- Main Layout -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -359,5 +362,31 @@
     ]
   }
   </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://pokepayguide.top/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "教程归档",
+      "item": "https://pokepayguide.top/archive.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PokePay 绑定支付宝全流程：USDT 变身日常消费神器",
+      "item": "https://pokepayguide.top/articles/how-to-bind-pokepay-to-alipay.html"
+    }
+  ]
+}
+</script>
 </body>
 </html>
