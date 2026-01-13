@@ -53,6 +53,44 @@
     }
   </script>
   <style>
+
+    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+    .hero-card-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+    .hero-card-gradient::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); animation: shimmer 6s infinite; }
+    .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
+    .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+    .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+    .animate-blob { animation: blob 12s ease-in-out infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animate-bounce-slow { animation: bounce 3s infinite; }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(20px, -10px) scale(1.05); }
+      66% { transform: translate(-10px, 20px) scale(0.98); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+  
+
+
+    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+    .hero-card-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+    .hero-card-gradient::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); animation: shimmer 6s infinite; }
+    .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
+    .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+    .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+    .animate-blob { animation: blob 12s ease-in-out infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animate-bounce-slow { animation: bounce 3s infinite; }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(20px, -10px) scale(1.05); }
+      66% { transform: translate(-10px, 20px) scale(0.98); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+  
+
     body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
     .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
     .article-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1); }
@@ -75,40 +113,31 @@
 
       <div class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
         
-        <a href="/#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/index.html#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💠</span> 平台优势
         </a>
         
         <div class="w-[1px] h-3 bg-slate-300/50"></div>
         
-        <a href="/#tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/index.html#tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">🧭</span> 新手指南
         </a>
         
         <div class="w-[1px] h-3 bg-slate-300/50"></div>
         
-        <a href="/#okx-tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/index.html#okx-tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">⚡</span> USDT充值
         </a>
 
         <div class="w-[1px] h-3 bg-slate-300/50"></div>
 
-        <a href="/articles/index.html" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/index.html#articles" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">📑</span> 深度文章
         </a>
         
         <div class="w-[1px] h-3 bg-slate-300/50"></div>
         
-        <a href="/#download" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
-            <svg class="w-4 h-4 text-emerald-600 group-hover:-translate-y-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            APP下载
-        </a>
-        
-        <div class="w-[1px] h-3 bg-slate-300/50"></div>
-        
-        <a href="/#faq" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+        <a href="/index.html#faq" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💡</span> 常见问题
         </a>
 
@@ -122,24 +151,57 @@
   </nav>
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <nav aria-label="Breadcrumb" class="flex text-sm font-medium text-slate-500 mb-8">
-      <ol class="flex items-center space-x-2">
-        <li>
-          <a href="/" class="hover:text-emerald-600 hover:underline transition-colors flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-            </svg>
-            <span class="sr-only">首页</span>
-          </a>
-        </li>
-        <li>
-          <span class="mx-1 text-slate-300">/</span>
-        </li>
-        <li aria-current="page" class="text-slate-800 font-semibold">
-          教程归档
-        </li>
-      </ol>
-    </nav>
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
+      
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-md"><rect width="100" height="100" rx="24" fill="#059669"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">Pokepay<span class="text-emerald-600">Guide</span></span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1 group-hover:text-emerald-500 transition-colors">Official Partner</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
+        
+        <a href="/index.html#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💠</span> 平台优势
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">🧭</span> 新手指南
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#okx-tutorial" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">⚡</span> USDT充值
+        </a>
+
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+
+        <a href="/index.html#articles" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">📑</span> 深度文章
+        </a>
+        
+        <div class="w-[1px] h-3 bg-slate-300/50"></div>
+        
+        <a href="/index.html#faq" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
+            <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💡</span> 常见问题
+        </a>
+
+      </div>
+
+      <div class="hidden md:flex items-center gap-4">
+        <a href="/index.html#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group"> <span class="relative flex h-2.5 w-2.5"> <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span> <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span> </span> <span class="group-hover:translate-x-0.5 transition-transform">USDT买币</span> </a>
+        <a href="/index.html#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden"> <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span> <span class="relative">立即开卡</span> </a>
+      </div>
+    </div>
+  </nav>
 
     <header class="text-center mb-16">
       <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">📚 所有教程 & 指南</h1>
@@ -276,10 +338,9 @@
           <div>
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">产品与服务</h4>
             <ul class="space-y-3 text-sm">
-              <li><a href="/#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
-              <li><a href="/#download" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> APP 下载专区</a></li>
-              <li><a href="/#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
-              <li><a href="/#okx-tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> USDT 充值指南</a></li>
+              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
+              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
+              <li><a href="/index.html#okx-tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> USDT 充值指南</a></li>
               <li><a href="/index.html#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 立即开卡 (Web)</a></li>
             </ul>
           </div>
@@ -287,10 +348,10 @@
           <div>
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">高频实战教程</h4>
             <ul class="space-y-3 text-sm">
-              <li><a href="/#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
-              <li><a href="pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
-              <li><a href="/#faq" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 解决 Visa 支付被拒</a></li>
-              <li><a href="pokepay-virtual-card-guide.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 订阅 ChatGPT Plus</a></li>
+              <li><a href="/index.html#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
+              <li><a href="/articles/pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
+              <li><a href="/index.html#faq" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 解决 Visa 支付被拒</a></li>
+              <li><a href="/articles/pokepay-virtual-card-guide.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 订阅 ChatGPT Plus</a></li>
             </ul>
           </div>
   

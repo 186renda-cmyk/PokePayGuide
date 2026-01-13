@@ -53,7 +53,7 @@ NEW_FOOTER = """<footer class="bg-slate-950 text-slate-400 py-16 border-t border
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">产品与服务</h4>
             <ul class="space-y-3 text-sm">
               <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
-              <li><a href="/index.html#download" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> APP 下载专区</a></li>
+              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
             </ul>
           </div>
           <div>

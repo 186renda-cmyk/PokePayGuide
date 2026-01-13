@@ -5,11 +5,7 @@ def fix_sales_links(target_paths):
     # Mapping for /go/ links to homepage anchors
     GO_MAPPING = {
         'pokepay': '/index.html#tutorial',
-        'okx': '/index.html#okx-tutorial',
-        'ios-store': '/index.html#download',
-        'google-play': '/index.html#download',
-        'apk': '/index.html#download',
-        'apple-id': '/index.html#download'
+        'okx': '/index.html#okx-tutorial'
     }
 
     all_files = []
