@@ -74,6 +74,25 @@
     .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
     .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
     .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+    .animate-blob { animation: blob 12s ease-in-out infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animate-bounce-slow { animation: bounce 3s infinite; }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(20px, -10px) scale(1.05); }
+      66% { transform: translate(-10px, 20px) scale(0.98); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+  
+
+
+    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+    .hero-card-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+    .hero-card-gradient::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); animation: shimmer 6s infinite; }
+    .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
+    .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+    .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
   
 
     body { background-color: #f8fafc; color: #334155; }
