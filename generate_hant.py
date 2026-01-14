@@ -27,7 +27,7 @@ def process_file(file_path):
         content_hant = convert_text(content)
         
         # 2. 修正 lang 属性
-        content_hant = content_hant.replace('lang="zh-Hans"', 'lang="zh-Hant"')
+        content_hant = content_hant.replace('lang="zh-CN"', 'lang="zh-Hant"')
         
         # 3. 修正 meta 标签中的简体字 (如 "简体中文" -> "繁体中文")
         # OpenCC 应该已经处理了大部分，这里做特定检查
@@ -57,7 +57,7 @@ def process_file(file_path):
 
         # 插入 hreflang 标签到 <head> 中
         hreflang_tags = f'''
-  <link rel="alternate" hreflang="zh-Hans" href="{alternate_hans}" />
+  <link rel="alternate" hreflang="zh-CN" href="{alternate_hans}" />
   <link rel="alternate" hreflang="zh-Hant" href="{canonical_url}" />
   <link rel="canonical" href="{canonical_url}">
 '''
