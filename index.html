@@ -296,7 +296,7 @@
 </head>
 <body class="font-sans pb-24 md:pb-0 pt-20">
 
-  <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+  <header class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
       
       <a href="/" class="flex items-center gap-3 group">
@@ -309,7 +309,7 @@
         </div>
       </a>
 
-      <div class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
+      <nav class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner" aria-label="Main Navigation">
         
         <a href="#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💠</span> 平台优势
@@ -339,14 +339,14 @@
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💡</span> 常见问题
         </a>
 
-      </div>
+      </nav>
 
       <div class="hidden md:flex items-center gap-4">
         <a href="#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group"> <span class="relative flex h-2.5 w-2.5"> <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span> <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span> </span> <span class="group-hover:translate-x-0.5 transition-transform">USDT买币</span> </a>
         <a href="#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden"> <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span> <span class="relative">立即开卡</span> </a>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main>
   <section class="relative pt-24 pb-16 overflow-hidden bg-white">
@@ -628,20 +628,20 @@
         <div class="relative z-10 grid md:grid-cols-2 gap-x-12 gap-y-10">
              <div class="flex gap-5 group/step">
              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 font-bold group-hover/step:bg-blue-600 group-hover/step:text-white group-hover/step:border-blue-600 transition duration-300">1</div>
-             <div><h4 class="text-lg font-bold text-slate-900 mb-2">注册与认证</h4><p class="text-sm text-slate-500 leading-relaxed">点击 <a href="/go/okx" target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 font-bold hover:underline">专属链接</a> 注册欧易(OKX)。完成 KYC 基础认证。</p></div>
+             <div><h3 class="text-lg font-bold text-slate-900 mb-2">注册与认证</h3><p class="text-sm text-slate-500 leading-relaxed">点击 <a href="/go/okx" target="_blank" rel="nofollow sponsored noopener noreferrer" class="text-blue-600 font-bold hover:underline">专属链接</a> 注册欧易(OKX)。完成 KYC 基础认证。</p></div>
           </div>
              <div class="flex gap-5 group/step">
              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 font-bold group-hover/step:bg-blue-600 group-hover/step:text-white group-hover/step:border-blue-600 transition duration-300">2</div>
-             <div><h4 class="text-lg font-bold text-slate-900 mb-2">购买 USDT</h4><p class="text-sm text-slate-500 leading-relaxed">在 App 首页点击“买币” -> “快捷买币”。支持支付宝/微信，购买 <strong>20 USDT</strong> 以上即可。</p></div>
+             <div><h3 class="text-lg font-bold text-slate-900 mb-2">购买 USDT</h3><p class="text-sm text-slate-500 leading-relaxed">在 App 首页点击“买币” -> “快捷买币”。支持支付宝/微信，购买 <strong>20 USDT</strong> 以上即可。</p></div>
           </div>
           <div class="flex gap-5 group/step relative">
              <div class="absolute top-12 left-5 w-0.5 h-16 bg-slate-100 -ml-[1px] md:hidden"></div>
              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 font-bold group-hover/step:bg-orange-500 group-hover/step:text-white group-hover/step:border-orange-500 transition duration-300">3</div>
-             <div><h4 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">提币 <span class="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full border border-orange-200">关键</span></h4><p class="text-sm text-slate-500 leading-relaxed">点击“资产” -> “提币”。网络必须选 <strong class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-100">USDT-TRC20</strong>。</p></div>
+             <div><h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">提币 <span class="bg-orange-100 text-orange-600 text-[10px] px-2 py-0.5 rounded-full border border-orange-200">关键</span></h3><p class="text-sm text-slate-500 leading-relaxed">点击“资产” -> “提币”。网络必须选 <strong class="text-orange-600 bg-orange-50 px-1 rounded border border-orange-100">USDT-TRC20</strong>。</p></div>
           </div>
           <div class="flex gap-5 group/step">
              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 font-bold group-hover/step:bg-emerald-500 group-hover/step:text-white group-hover/step:border-emerald-500 transition duration-300">4</div>
-             <div><h4 class="text-lg font-bold text-slate-900 mb-2">自动到账</h4><p class="text-sm text-slate-500 leading-relaxed">链上确认后通常 3-5 分钟自动到账。Pokepay App 会有推送通知。</p></div>
+             <div><h3 class="text-lg font-bold text-slate-900 mb-2">自动到账</h3><p class="text-sm text-slate-500 leading-relaxed">链上确认后通常 3-5 分钟自动到账。Pokepay App 会有推送通知。</p></div>
           </div>
         </div>
         <div class="mt-12 pt-8 border-t border-slate-100 flex justify-center">
@@ -659,8 +659,8 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Review 1 -->
-        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
-          <div class="flex items-center gap-4 mb-6">
+        <figure class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
+          <figcaption class="flex items-center gap-4 mb-6">
             <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-lg">L</div>
             <div>
               <div class="font-bold text-slate-900">Li Ming</div>
@@ -670,12 +670,12 @@
               </div>
             </div>
             <div class="ml-auto flex text-yellow-400 text-sm">★★★★★</div>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed">"试过好几张卡都付不了 ChatGPT Plus，最后用 PokePay 的 5347 卡段一次成功！而且充值速度真的很快，几分钟就到账了。"</p>
-        </div>
+          </figcaption>
+          <blockquote class="text-slate-600 text-sm leading-relaxed">"试过好几张卡都付不了 ChatGPT Plus，最后用 PokePay 的 5347 卡段一次成功！而且充值速度真的很快，几分钟就到账了。"</blockquote>
+        </figure>
         <!-- Review 2 -->
-        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
-          <div class="flex items-center gap-4 mb-6">
+        <figure class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
+          <figcaption class="flex items-center gap-4 mb-6">
             <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-lg">S</div>
             <div>
               <div class="font-bold text-slate-900">Sarah Chen</div>
@@ -685,12 +685,12 @@
               </div>
             </div>
             <div class="ml-auto flex text-yellow-400 text-sm">★★★★★</div>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed">"绑定支付宝在国内消费很丝滑，主要是汇率还不错。不仅能订阅 OnlyFans，平时买东西也能用，把手里的 U 变现很方便。"</p>
-        </div>
+          </figcaption>
+          <blockquote class="text-slate-600 text-sm leading-relaxed">"绑定支付宝在国内消费很丝滑，主要是汇率还不错。不仅能订阅 OnlyFans，平时买东西也能用，把手里的 U 变现很方便。"</blockquote>
+        </figure>
         <!-- Review 3 -->
-        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
-          <div class="flex items-center gap-4 mb-6">
+        <figure class="bg-slate-50 p-8 rounded-2xl border border-slate-100 relative group hover:shadow-lg transition">
+          <figcaption class="flex items-center gap-4 mb-6">
             <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg">K</div>
             <div>
               <div class="font-bold text-slate-900">Kevin Zhang</div>
@@ -700,9 +700,9 @@
               </div>
             </div>
             <div class="ml-auto flex text-yellow-400 text-sm">★★★★☆</div>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed">"作为开发者，用来付 Google Play 开发者账号和服务器费用的。目前用了半年很稳定，希望能出更多卡段选择。"</p>
-        </div>
+          </figcaption>
+          <blockquote class="text-slate-600 text-sm leading-relaxed">"作为开发者，用来付 Google Play 开发者账号和服务器费用的。目前用了半年很稳定，希望能出更多卡段选择。"</blockquote>
+        </figure>
       </div>
     </div>
   </section>
@@ -753,45 +753,51 @@
         <a href="/articles/" class="hidden md:flex items-center gap-1 text-sm font-bold text-slate-900 hover:text-emerald-600 transition group">查看所有文章 <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <a href="articles/pokepay-virtual-card-guide.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition duration-300 overflow-hidden hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-emerald-50 to-teal-50 relative overflow-hidden">
-             <div class="absolute top-0 right-0 w-32 h-32 bg-[#10a37f]/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-             <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-[#10a37f] shadow-sm flex items-center gap-1">
-               <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> AI 订阅
-             </div>
-          </div>
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition">Pokepay虚拟卡开卡与绑定全流程指南</h3>
-            <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">手把手教你使用 Pokepay 虚拟卡，3分钟解锁 ChatGPT Plus、Midjourney 及 Apple ID，含详细开卡步骤。</p>
-            <div class="flex items-center text-sm font-bold text-emerald-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
-          </div>
-        </a>
-        <a href="articles/pokepay-kaopu-ma.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition duration-300 overflow-hidden hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-             <div class="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-             <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-blue-600 shadow-sm flex items-center gap-1">
-               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> 安全评测
-             </div>
-          </div>
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Pokepay 靠谱吗？安全性与合规资质深度解析</h3>
-            <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">从金融牌照、资金安全到使用场景，全方位评测 Pokepay 是否值得信赖，以及如何安全地进行海外订阅。</p>
-            <div class="flex items-center text-sm font-bold text-blue-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
-          </div>
-        </a>
-        <a href="articles/okx-usdt-topup-trc20.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition duration-300 overflow-hidden hover:-translate-y-1">
-          <div class="h-48 bg-gradient-to-br from-orange-50 to-amber-50 relative overflow-hidden">
-             <div class="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-             <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-orange-600 shadow-sm flex items-center gap-1">
-               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg> 充值教程
-             </div>
-          </div>
-          <div class="p-6 flex-1 flex flex-col">
-            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition">欧易 OKX USDT (TRC20) 充值保姆级教程</h3>
-            <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">从注册欧易、购买 USDT 到提币至 Pokepay 的完整流程图文解析，解决充值不到账的常见问题。</p>
-            <div class="flex items-center text-sm font-bold text-orange-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
-          </div>
-        </a>
+        <article class="h-full">
+          <a href="articles/pokepay-virtual-card-guide.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition duration-300 overflow-hidden hover:-translate-y-1">
+            <div class="h-48 bg-gradient-to-br from-emerald-50 to-teal-50 relative overflow-hidden">
+               <div class="absolute top-0 right-0 w-32 h-32 bg-[#10a37f]/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+               <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-[#10a37f] shadow-sm flex items-center gap-1">
+                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> AI 订阅
+               </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition">Pokepay虚拟卡开卡与绑定全流程指南</h3>
+              <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">手把手教你使用 Pokepay 虚拟卡，3分钟解锁 ChatGPT Plus、Midjourney 及 Apple ID，含详细开卡步骤。</p>
+              <div class="flex items-center text-sm font-bold text-emerald-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
+            </div>
+          </a>
+        </article>
+        <article class="h-full">
+          <a href="articles/pokepay-kaopu-ma.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-200 transition duration-300 overflow-hidden hover:-translate-y-1">
+            <div class="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
+               <div class="absolute top-0 right-0 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+               <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-blue-600 shadow-sm flex items-center gap-1">
+                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> 安全评测
+               </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition">Pokepay 靠谱吗？安全性与合规资质深度解析</h3>
+              <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">从金融牌照、资金安全到使用场景，全方位评测 Pokepay 是否值得信赖，以及如何安全地进行海外订阅。</p>
+              <div class="flex items-center text-sm font-bold text-blue-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
+            </div>
+          </a>
+        </article>
+        <article class="h-full">
+          <a href="articles/okx-usdt-topup-trc20.html" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-200 transition duration-300 overflow-hidden hover:-translate-y-1">
+            <div class="h-48 bg-gradient-to-br from-orange-50 to-amber-50 relative overflow-hidden">
+               <div class="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+               <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold text-orange-600 shadow-sm flex items-center gap-1">
+                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg> 充值教程
+               </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition">欧易 OKX USDT (TRC20) 充值保姆级教程</h3>
+              <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">从注册欧易、购买 USDT 到提币至 Pokepay 的完整流程图文解析，解决充值不到账的常见问题。</p>
+              <div class="flex items-center text-sm font-bold text-orange-600">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
+            </div>
+          </a>
+        </article>
       </div>
       <div class="mt-8 text-center md:hidden">
         <a href="/articles/" class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-bold text-slate-700 bg-slate-50 rounded-xl border border-slate-200 hover:bg-slate-100 transition">查看所有文章</a>
@@ -881,12 +887,12 @@
       </div>
   </footer>
 
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
+  <nav class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom" aria-label="Mobile Navigation">
     <div class="flex gap-3">
       <a href="#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
       <a href="#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
     </div>
-  </div>
+  </nav>
   <script>
     // 链接审计日志：记录外链和软路由跳转行为
     document.addEventListener('click', function(e) {

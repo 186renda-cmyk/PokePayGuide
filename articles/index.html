@@ -86,8 +86,6 @@
       100% { transform: translate(0px, 0px) scale(1); }
     }
     /* MASTER_CSS_END */
-  
-    .article-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1); }
   </style>
   
   
@@ -229,7 +227,7 @@
 </head>
 <body class="font-sans pb-24 md:pb-0 pt-20">
 
-  <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+  <header class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
       
       <a href="/" class="flex items-center gap-3 group">
@@ -242,7 +240,7 @@
         </div>
       </a>
 
-      <div class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
+      <nav aria-label="Main Navigation" class="hidden md:flex items-center p-1.5 bg-slate-100/80 border border-slate-200/60 rounded-full backdrop-blur-md shadow-inner">
         
         <a href="/index.html#features" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-emerald-700 hover:bg-white hover:shadow-sm rounded-full transition-all duration-300 flex items-center gap-1.5 group">
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💠</span> 平台优势
@@ -272,14 +270,14 @@
             <span class="group-hover:-translate-y-0.5 transition-transform duration-300">💡</span> 常见问题
         </a>
 
-      </div>
+      </nav>
 
       <div class="hidden md:flex items-center gap-4">
         <a href="/index.html#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group"> <span class="relative flex h-2.5 w-2.5"> <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span> <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span> </span> <span class="group-hover:translate-x-0.5 transition-transform">USDT买币</span> </a>
         <a href="/index.html#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden"> <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span> <span class="relative">立即开卡</span> </a>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <nav aria-label="Breadcrumb" class="mb-8">
@@ -506,12 +504,12 @@
       </div>
   </footer>
 
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
+  <nav aria-label="Mobile Navigation" class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
     <div class="flex gap-3">
       <a href="/index.html#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
       <a href="/index.html#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
     </div>
-  </div>
+  </nav>
   
 </body>
 </html>
