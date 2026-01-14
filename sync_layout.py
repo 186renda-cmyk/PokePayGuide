@@ -65,12 +65,25 @@ def sync_layout():
 
     # 3. Process Article Files
     print(f"Processing articles in {ARTICLES_DIR}...")
-    for filename in os.listdir(ARTICLES_DIR):
-        if not filename.endswith('.html'):
-            continue
-            
-        file_path = os.path.join(ARTICLES_DIR, filename)
-        print(f"  Updating {filename}...")
+    
+    # Define files to process: all .html in articles/ AND specific root files
+    files_to_process = []
+    
+    # Add article files
+    if os.path.exists(ARTICLES_DIR):
+        for f in os.listdir(ARTICLES_DIR):
+            if f.endswith('.html'):
+                files_to_process.append(os.path.join(ARTICLES_DIR, f))
+    
+    # Add root pages (excluding index.html)
+    root_pages = ['terms-of-service.html', 'privacy-policy.html', '404.html']
+    for f in root_pages:
+        path = os.path.join(PROJECT_ROOT, f)
+        if os.path.exists(path):
+            files_to_process.append(path)
+
+    for file_path in files_to_process:
+        print(f"  Updating {os.path.basename(file_path)}...")
         
         content = read_file(file_path)
         
