@@ -85,6 +85,131 @@
       100% { transform: translate(0px, 0px) scale(1); }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://pokepayguide.top/#organization",
+        "name": "Pokepay中文指南",
+        "url": "https://pokepayguide.top",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://pokepayguide.top/logo.png"
+        },
+        "areaServed": {
+          "@type": "Place",
+          "name": "Global"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "support@pokepayguide.top"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pokepayguide.top/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://pokepayguide.top/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Pokepay注册教程",
+            "item": "https://pokepayguide.top/#tutorial"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "headline": "Pokepay虚拟卡注册、充值教程 (全流程收录)",
+        "image": "https://pokepayguide.top/images/og-cover.png",
+        "author": {
+          "@id": "https://pokepayguide.top/#organization"
+        },
+        "publisher": {
+          "@id": "https://pokepayguide.top/#organization"
+        },
+        "datePublished": "2024-03-15",
+        "dateModified": "2026-01-12",
+        "description": "提供Pokepay虚拟卡免费注册、身份认证(KYC)及USDT充值开卡全流程教学。一站式解决ChatGPT Plus、OnlyFans支付难题。",
+        "about": {
+          "@type": "FinanceApplication",
+          "name": "Pokepay App",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Android, iOS",
+          "featureList": "虚拟信用卡, USDT充值, 跨境支付",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        }
+      },
+      {
+        "@type": "HowTo",
+        "name": "Pokepay虚拟卡注册(免费)与充值开卡步骤",
+        "description": "0门槛免费注册，身份认证通过后，仅需充值即可激活卡片。",
+        "totalTime": "PT10M",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "第一步：获取Pokepay APP下载地址",
+            "text": "访问本站号或邮箱完成注册（此步骤完全免费），务必填写邀请码 [365888] 以激活 VIP 费率权益。",
+            "url": "https://pokepayguide.top/#tutorial"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "第三步：完成 KYC 身份认证",
+            "text": "按指引上传身份证或护照进行实名认证，通常 2 分钟内自动审核通过。",
+            "url": "https://pokepayguide.top/#tutorial"
+          },
+          {
+            "@type": "HowToStep",
+            "name": "第四步：USDT 充值与开卡",
+            "text": "通过 TRC20 网络充值 USDT。注意：注册是免费的，但开通虚拟卡需要卡片余额，建议充值 20 USDT 以上用于激活。",
+            "url": "https://pokepayguide.top/#okx-tutorial"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "注册 Pokepay 需要付费吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "<strong>完全免费。</strong> Pokepay APP 下载、账号注册及 KYC 身份认证均不收取任何费用。仅在您决定申请/激活虚拟卡时，才需要进行充值（充值金额将用于您的卡片余额及开卡费）。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pokepay虚拟卡官网入口在哪里？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "为了资金安全，建议通过 PokepayGuide 提供的 <a href='/#tutorial'>官方合作入口</a> 进行注册，避免进入钓鱼网站。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "USDT 充值多久到账？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "一般链上确认后 15 分钟左右自动到账。若超过 30 分钟未到账，请联系 App 内客服查询。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="font-sans pb-24 md:pb-0 pt-20">
 
@@ -677,132 +802,6 @@
       <a href="#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
     </div>
   </div>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://pokepayguide.top/#organization",
-        "name": "Pokepay中文指南",
-        "url": "https://pokepayguide.top",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://pokepayguide.top/logo.png"
-        },
-        "areaServed": {
-          "@type": "Place",
-          "name": "Global"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "customer support",
-          "email": "support@pokepayguide.top"
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://pokepayguide.top/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "首页",
-            "item": "https://pokepayguide.top/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Pokepay注册教程",
-            "item": "https://pokepayguide.top/#tutorial"
-          }
-        ]
-      },
-      {
-        "@type": "Article",
-        "headline": "Pokepay虚拟卡注册、充值教程 (全流程收录)",
-        "image": "https://pokepayguide.top/images/og-cover.png",
-        "author": {
-          "@id": "https://pokepayguide.top/#organization"
-        },
-        "publisher": {
-          "@id": "https://pokepayguide.top/#organization"
-        },
-        "datePublished": "2024-03-15",
-        "dateModified": "2026-01-12",
-        "description": "提供Pokepay虚拟卡免费注册、身份认证(KYC)及USDT充值开卡全流程教学。一站式解决ChatGPT Plus、OnlyFans支付难题。",
-        "about": {
-          "@type": "FinanceApplication",
-          "name": "Pokepay App",
-          "applicationCategory": "FinanceApplication",
-          "operatingSystem": "Android, iOS",
-          "featureList": "虚拟信用卡, USDT充值, 跨境支付",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          }
-        }
-      },
-      {
-        "@type": "HowTo",
-        "name": "Pokepay虚拟卡注册(免费)与充值开卡步骤",
-        "description": "0门槛免费注册，身份认证通过后，仅需充值即可激活卡片。",
-        "totalTime": "PT10M",
-        "step": [
-          {
-            "@type": "HowToStep",
-            "name": "第一步：获取Pokepay APP下载地址",
-            "text": "访问本站号或邮箱完成注册（此步骤完全免费），务必填写邀请码 [365888] 以激活 VIP 费率权益。",
-            "url": "https://pokepayguide.top/#tutorial"
-          },
-          {
-            "@type": "HowToStep",
-            "name": "第三步：完成 KYC 身份认证",
-            "text": "按指引上传身份证或护照进行实名认证，通常 2 分钟内自动审核通过。",
-            "url": "https://pokepayguide.top/#tutorial"
-          },
-          {
-            "@type": "HowToStep",
-            "name": "第四步：USDT 充值与开卡",
-            "text": "通过 TRC20 网络充值 USDT。注意：注册是免费的，但开通虚拟卡需要卡片余额，建议充值 20 USDT 以上用于激活。",
-            "url": "https://pokepayguide.top/#okx-tutorial"
-          }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "注册 Pokepay 需要付费吗？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "<strong>完全免费。</strong> Pokepay APP 下载、账号注册及 KYC 身份认证均不收取任何费用。仅在您决定申请/激活虚拟卡时，才需要进行充值（充值金额将用于您的卡片余额及开卡费）。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Pokepay虚拟卡官网入口在哪里？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "为了资金安全，建议通过 PokepayGuide 提供的 <a href='/#tutorial'>官方合作入口</a> 进行注册，避免进入钓鱼网站。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "USDT 充值多久到账？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "一般链上确认后 15 分钟左右自动到账。若超过 30 分钟未到账，请联系 App 内客服查询。"
-            }
-          }
-        ]
-      }
-    ]
-  }
-  </script>
   <script>
     // 链接审计日志：记录外链和软路由跳转行为
     document.addEventListener('click', function(e) {
