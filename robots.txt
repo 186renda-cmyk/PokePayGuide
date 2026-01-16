@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pokepayguide.top/sitemap.xml
+Sitemap: https://pokepayguide.top/sitemap_index.xml
