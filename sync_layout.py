@@ -229,9 +229,7 @@ def sync_layout():
         
         # --- Final Clean Sweep of Links in Body ---
         # CAUTION: This replaces all .html in hrefs. 
-        content = re.sub(r'href="([^"]*?)\.html"', r'href="\1"', content)
-        # Also clean up double slashes if any created (except http://)
-        # content = content.replace('//', '/') # Too dangerous for https://
+        content = clean_url_in_html(content)
         
         write_file(file_path, content)
 
