@@ -18,12 +18,14 @@ def get_files(directory, prefix=""):
             if url_path.startswith("/"):
                 url_path = url_path[1:]
             
-            # Clean URL: remove index.html
+            # Clean URL: remove index.html and .html extension
             if url_path.endswith("index.html"):
                 if url_path == "index.html":
                     url_path = ""
                 else:
                     url_path = url_path[:-10] # remove "index.html"
+            elif url_path.endswith(".html"):
+                url_path = url_path[:-5] # remove ".html"
             
             # Determine priority and frequency
             priority = "0.8"

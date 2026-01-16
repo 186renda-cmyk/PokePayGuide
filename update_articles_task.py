@@ -18,17 +18,17 @@ NEW_NAV = """<nav class="fixed top-0 w-full z-50 glass-nav transition-all durati
         </div>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600">
-        <a href="/index.html#features" class="hover:text-emerald-600 transition">优势</a>
-        <a href="/index.html#tutorial" class="hover:text-emerald-600 transition">教程</a>
-        <a href="/index.html#okx-tutorial" class="hover:text-emerald-600 transition">充值</a>
-        <a href="/index.html#faq" class="hover:text-emerald-600 transition">问答</a>
+        <a href="/#features" class="hover:text-emerald-600 transition">优势</a>
+        <a href="/#tutorial" class="hover:text-emerald-600 transition">教程</a>
+        <a href="/#okx-tutorial" class="hover:text-emerald-600 transition">充值</a>
+        <a href="/#faq" class="hover:text-emerald-600 transition">问答</a>
       </div>
       <div class="hidden md:flex items-center gap-4">
-        <a href="/index.html#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group">
+        <a href="/#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group">
           <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
           USDT买币
         </a>
-        <a href="/index.html#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden">
+        <a href="/#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden">
             <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
             <span class="relative">立即开卡</span>
         </a>
@@ -52,15 +52,15 @@ NEW_FOOTER = """<footer class="bg-slate-950 text-slate-400 py-16 border-t border
           <div>
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">产品与服务</h4>
             <ul class="space-y-3 text-sm">
-              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
-              <li><a href="/index.html#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
+              <li><a href="/#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> Pokepay 虚拟卡</a></li>
+              <li><a href="/#features" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 费率与限额说明</a></li>
             </ul>
           </div>
           <div>
             <h4 class="text-white font-bold mb-6 flex items-center gap-2 text-sm uppercase tracking-wider">高频实战教程</h4>
             <ul class="space-y-3 text-sm">
-              <li><a href="/index.html#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
-              <li><a href="/articles/pokepay-kaopu-ma.html" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
+              <li><a href="/#tutorial" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 新手注册全流程</a></li>
+              <li><a href="/articles/pokepay-kaopu-ma" class="hover:text-emerald-400 transition flex items-center gap-2 group"><span class="w-1 h-1 rounded-full bg-slate-700 group-hover:bg-emerald-400 transition"></span> 平台安全性评测</a></li>
             </ul>
           </div>
           <div>
@@ -73,8 +73,8 @@ NEW_FOOTER = """<footer class="bg-slate-950 text-slate-400 py-16 border-t border
         <div class="pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
           <div class="flex items-center gap-3"><span>&copy; 2026 PokepayGuide.top. All rights reserved.</span></div>
           <div class="flex gap-6">
-            <a href="/privacy-policy.html" class="hover:text-slate-400 transition">隐私政策</a>
-            <a href="/terms-of-service.html" class="hover:text-slate-400 transition">服务条款</a>
+            <a href="/privacy-policy" class="hover:text-slate-400 transition">隐私政策</a>
+            <a href="/terms-of-service" class="hover:text-slate-400 transition">服务条款</a>
             <a href="/sitemap.xml" class="hover:text-slate-400 transition">Sitemap</a>
           </div>
         </div>
@@ -84,8 +84,8 @@ NEW_FOOTER = """<footer class="bg-slate-950 text-slate-400 py-16 border-t border
 # The mobile bottom bar HTML to check/insert
 MOBILE_BAR = """<div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
     <div class="flex gap-3">
-      <a href="/index.html#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
-      <a href="/index.html#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
+      <a href="/#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
+      <a href="/#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
     </div>
   </div>"""
 
