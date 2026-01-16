@@ -281,26 +281,35 @@
   </header>
 
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <nav aria-label="Breadcrumb" class="mb-8">
-      <ol class="flex items-center gap-2 text-sm text-slate-500">
-        <li>
-          <a href="/" class="hover:text-emerald-600 transition flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-              <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
-            </svg>
-            首页
-          </a>
-        </li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-slate-300">
-            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-          </svg>
-        </li>
-        <li>
-          <span class="text-slate-900 font-medium" aria-current="page">教程归档</span>
-        </li>
-      </ol>
-    </nav>
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-md"><rect width="100" height="100" rx="24" fill="#059669"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">Pokepay<span class="text-emerald-600">Guide</span></span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1 group-hover:text-emerald-500 transition-colors">Official Partner</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600">
+        <a href="/#features" class="hover:text-emerald-600 transition">优势</a>
+        <a href="/#tutorial" class="hover:text-emerald-600 transition">教程</a>
+        <a href="/#okx-tutorial" class="hover:text-emerald-600 transition">充值</a>
+        <a href="/#faq" class="hover:text-emerald-600 transition">问答</a>
+      </div>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="/#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group">
+          <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
+          USDT买币
+        </a>
+        <a href="/#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+            <span class="relative">立即开卡</span>
+        </a>
+      </div>
+    </div>
+  </nav>
     <header class="text-center mb-16">
       <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">📚 所有教程 & 指南</h1>
       <p class="text-slate-500">共收录 9 篇实战文章，助你玩转全球支付</p>
@@ -505,12 +514,41 @@
       </div>
   </footer>
 
-  <nav aria-label="Mobile Navigation" class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
-    <div class="flex gap-3">
-      <a href="/index.html#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
-      <a href="/index.html#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
+  <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 flex items-center justify-center bg-transparent group-hover:scale-105 transition-transform duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-md"><rect width="100" height="100" rx="24" fill="#059669"/><path d="M35 25h15c15 0 20 5 20 15s-5 15-20 15h-5v20h-10V25z m10 22h5c8 0 10-2 10-7s-2-7-10-7h-5v14z" fill="white"/></svg>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none">Pokepay<span class="text-emerald-600">Guide</span></span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none mt-1 group-hover:text-emerald-500 transition-colors">Official Partner</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-bold text-slate-600">
+        <a href="/#features" class="hover:text-emerald-600 transition">优势</a>
+        <a href="/#tutorial" class="hover:text-emerald-600 transition">教程</a>
+        <a href="/#okx-tutorial" class="hover:text-emerald-600 transition">充值</a>
+        <a href="/#faq" class="hover:text-emerald-600 transition">问答</a>
+      </div>
+      <div class="hidden md:flex items-center gap-4">
+        <a href="/#okx-tutorial" class="text-sm font-bold text-slate-500 hover:text-emerald-600 transition flex items-center gap-1.5 px-2 group">
+          <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
+          USDT买币
+        </a>
+        <a href="/#tutorial" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden">
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+            <span class="relative">立即开卡</span>
+        </a>
+      </div>
     </div>
   </nav>
   
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 backdrop-blur-lg border-t border-slate-200 lg:hidden z-50 safe-area-bottom">
+    <div class="flex gap-3">
+      <a href="/#okx-tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm bg-white">USDT充值</a>
+      <a href="/#tutorial" class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg">立即开卡</a>
+    </div>
+  </div>
 </body>
 </html>

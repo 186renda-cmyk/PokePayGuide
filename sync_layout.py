@@ -189,20 +189,25 @@ def sync_layout():
         content = fix_seo_tags(content, file_path)
         
         # --- Update Nav & Footer ---
-        is_index = (file_path == INDEX_PATH) or (file_path.endswith('zh-hant/index.html'))
+        # SKIP for zh-hant files, because generate_hant.py already handled them correctly (translated and localized links)
+        # We don't want to revert them to Simplified Chinese master components.
+        is_hant = 'zh-hant' in file_path.lower()
         
-        if is_index:
-            current_nav = master_nav
-            current_footer = master_footer
-        else:
-            current_nav = article_nav
-            current_footer = article_footer
+        if not is_hant:
+            is_index = (file_path == INDEX_PATH)
+            
+            if is_index:
+                current_nav = master_nav
+                current_footer = master_footer
+            else:
+                current_nav = article_nav
+                current_footer = article_footer
 
-        if '<nav' in content:
-            content = re.sub(r'<nav.*?</nav>', current_nav, content, count=1, flags=re.DOTALL)
-        
-        if '<footer' in content:
-            content = re.sub(r'<footer.*?</footer>', current_footer, content, count=1, flags=re.DOTALL)
+            if '<nav' in content:
+                content = re.sub(r'<nav.*?</nav>', current_nav, content, count=1, flags=re.DOTALL)
+            
+            if '<footer' in content:
+                content = re.sub(r'<footer.*?</footer>', current_footer, content, count=1, flags=re.DOTALL)
 
         # --- Update Tailwind Config ---
         if tailwind_config:

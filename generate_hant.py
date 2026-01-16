@@ -84,12 +84,17 @@ def process_file(file_path):
         
         # 插入 hreflang 标签到 <head> 中
         hreflang_tags = f'''
+  <link rel="alternate" hreflang="zh" href="{zh_hans_url}" />
   <link rel="alternate" hreflang="zh-CN" href="{zh_hans_url}" />
   <link rel="alternate" hreflang="zh-Hant" href="{canonical_url}" />
+  <link rel="alternate" hreflang="x-default" href="{zh_hans_url}" />
   <link rel="canonical" href="{canonical_url}">
 '''
         # 替换原有的 canonical (如果有)
         content_hant = re.sub(r'<link rel="canonical" href="[^"]+">', '', content_hant)
+
+        # 移除原有的 hreflang 标签 (防止重复)
+        content_hant = re.sub(r'<link rel="alternate" hreflang="[^"]+" href="[^"]+" />\s*', '', content_hant)
         
         # 插入新的标签
         content_hant = content_hant.replace('</head>', f'{hreflang_tags}</head>')
@@ -105,6 +110,7 @@ def process_file(file_path):
         
         # Replace article archive link
         content_hant = content_hant.replace('href="/articles/"', 'href="/articles/zh-hant/"')
+        content_hant = content_hant.replace('href="articles/"', 'href="/articles/zh-hant/"')
         
         # Replace other internal links?
         # If we have href="/articles/foo.html", we want href="/articles/zh-hant/foo"
@@ -112,8 +118,8 @@ def process_file(file_path):
         # But be careful not to double replace.
         
         # Regex replace for /articles/ (excluding /articles/zh-hant/)
-        # Look for href="/articles/(?!zh-hant)
-        content_hant = re.sub(r'href="/articles/(?!zh-hant)', 'href="/articles/zh-hant/', content_hant)
+        # Look for href="/articles/(?!zh-hant) or href="articles/(?!zh-hant)
+        content_hant = re.sub(r'href="/?articles/(?!zh-hant)', 'href="/articles/zh-hant/', content_hant)
 
         # 保存文件
         target_path = Path(target_rel_path)
