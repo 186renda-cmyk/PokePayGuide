@@ -92,7 +92,7 @@ def resolve_to_absolute(url, current_file_path):
     # Clean suffix
     if abs_path.endswith('.html'):
         abs_path = abs_path[:-5]
-    elif abs_path.endswith('/index'):
+    if abs_path.endswith('/index'):
         abs_path = abs_path[:-6]
         if abs_path == '': abs_path = '/'
     
