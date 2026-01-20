@@ -224,7 +224,8 @@ def reorganize_head(soup, file_path, clean_path):
 
 def inject_recommended_reading(soup, file_path):
     """Injects recommended reading block at the bottom of <article>."""
-    if 'articles' not in file_path:
+    # Skip non-article pages and the articles index itself
+    if 'articles' not in file_path or file_path.endswith('index.html'):
         return
         
     article_tag = soup.find('article')
@@ -234,18 +235,60 @@ def inject_recommended_reading(soup, file_path):
     if soup.find('div', id='recommended-reading'):
         return
 
-    html = '''
+    # Define a pool of recommended articles
+    # Format: (URL, Title, Description)
+    recommendations = [
+        (
+            "/articles/how-to-bind-pokepay-to-alipay",
+            "绑定支付宝教程",
+            "国内消费神器，支持淘宝、美团、线下扫码。"
+        ),
+        (
+            "/articles/pokepay-usdt-recharge",
+            "USDT 充值指南",
+            "TRC20 网络充值教程，3分钟极速到账。"
+        ),
+        (
+            "/articles/pokepay-virtual-card-guide",
+            "虚拟卡开卡全流程",
+            "手把手教你注册、KYC认证、开卡。新手入门第一课。"
+        ),
+        (
+            "/articles/subscription-failure-checklist",
+            "支付被拒？排查清单",
+            "遇到 Card Declined 怎么办？余额、IP、地址全方位排查。"
+        )
+    ]
+
+    # Filter out current page
+    current_clean = get_clean_url(file_path)
+    # Ensure current_clean has no trailing slash for comparison if needed, 
+    # but our pool has no trailing slash.
+    # get_clean_url returns /articles/foo
+    
+    valid_recs = [r for r in recommendations if r[0] != current_clean]
+    
+    # Pick top 2
+    selected = valid_recs[:2]
+    
+    if not selected:
+        return
+
+    # Build HTML
+    items_html = ""
+    for url, title, desc in selected:
+        items_html += f'''
+            <a href="{url}" class="block group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-emerald-500 transition">
+                <div class="font-bold text-slate-900 group-hover:text-emerald-600 mb-2">{title}</div>
+                <p class="text-xs text-slate-500">{desc}</p>
+            </a>
+        '''
+
+    html = f'''
     <div id="recommended-reading" class="mt-12 pt-8 border-t border-slate-200">
         <h3 class="text-xl font-bold text-slate-900 mb-6">推荐阅读</h3>
         <div class="grid md:grid-cols-2 gap-6">
-            <a href="/articles/how-to-bind-pokepay-to-alipay" class="block group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-emerald-500 transition">
-                <div class="font-bold text-slate-900 group-hover:text-emerald-600 mb-2">绑定支付宝教程</div>
-                <p class="text-xs text-slate-500">国内消费神器，支持淘宝、美团、线下扫码。</p>
-            </a>
-            <a href="/articles/pokepay-usdt-recharge" class="block group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-emerald-500 transition">
-                <div class="font-bold text-slate-900 group-hover:text-emerald-600 mb-2">USDT 充值指南</div>
-                <p class="text-xs text-slate-500">TRC20 网络充值教程，3分钟极速到账。</p>
-            </a>
+            {items_html}
         </div>
     </div>
     '''
