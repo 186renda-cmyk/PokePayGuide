@@ -32,7 +32,7 @@ def get_files(directory, prefix=""):
             changefreq = "weekly"
             
             if filename == "index.html":
-                if prefix in ["", "zh-hant"]: # Root index or zh-hant root index
+                if prefix == "": # Root index
                     priority = "1.0"
                     changefreq = "daily"
                 elif "articles" in prefix:
@@ -90,19 +90,8 @@ def main():
         f.write(generate_xml(sc_urls))
     print("Generated sitemap.xml")
 
-    # 2. Generate sitemap-hant.xml (Traditional Chinese)
-    tc_urls = []
-    # Root zh-hant
-    tc_urls.extend(get_files(os.path.join(PROJECT_ROOT, "zh-hant"), "zh-hant"))
-    # Articles zh-hant
-    tc_urls.extend(get_files(os.path.join(PROJECT_ROOT, "articles", "zh-hant"), "articles/zh-hant"))
-    
-    with open(os.path.join(PROJECT_ROOT, "sitemap-hant.xml"), "w", encoding="utf-8") as f:
-        f.write(generate_xml(tc_urls))
-    print("Generated sitemap-hant.xml")
-
     # 3. Generate sitemap_index.xml
-    index_content = generate_index(["sitemap.xml", "sitemap-hant.xml"])
+    index_content = generate_index(["sitemap.xml"])
     with open(os.path.join(PROJECT_ROOT, "sitemap_index.xml"), "w", encoding="utf-8") as f:
         f.write(index_content)
     print("Generated sitemap_index.xml")

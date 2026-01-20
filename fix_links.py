@@ -101,14 +101,12 @@ def fix_sales_links(target_paths):
     return report
 
 if __name__ == "__main__":
-    base_dir = "/Users/xiaxingyu/Desktop/网站项目/PokePay"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
     targets = [
         os.path.join(base_dir, "articles"),
         os.path.join(base_dir, "index.html"),
-        os.path.join(base_dir, "archive.html"),
         os.path.join(base_dir, "privacy-policy.html"),
-        os.path.join(base_dir, "terms-of-service.html"),
-        os.path.join(base_dir, "_master_template.html")
+        os.path.join(base_dir, "terms-of-service.html")
     ]
     fixes = fix_sales_links(targets)
     for fix in fixes:
