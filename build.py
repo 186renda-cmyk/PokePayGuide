@@ -206,9 +206,11 @@ def reorganize_head(soup, file_path, clean_path):
 
     # 6. Group C: Schema
     # Preserve existing schemas but clean their content
+    has_schema = False
     for schema in schemas:
         schema_content = schema.string
         if schema_content:
+            has_schema = True
             # Clean .html extensions in schema
             schema_content = re.sub(r'"([^"]*?)\.html"', r'"\1"', schema_content)
             schema_content = schema_content.replace('"/index"', '"/"')
@@ -218,8 +220,32 @@ def reorganize_head(soup, file_path, clean_path):
         head.append(schema)
         head.append(BeautifulSoup('\n  ', 'html.parser'))
     
-    # TODO: Generate BlogPosting schema if missing (Phase 3 requirement)
-    
+    # Generate default schema if missing for standard pages
+    if not has_schema:
+        schema_data = None
+        if clean_path == '/privacy-policy':
+            schema_data = {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "隐私政策",
+                "url": DOMAIN + "/privacy-policy",
+                "description": "Pokepay 隐私政策说明"
+            }
+        elif clean_path == '/terms-of-service':
+            schema_data = {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "服务条款",
+                "url": DOMAIN + "/terms-of-service",
+                "description": "Pokepay 服务条款说明"
+            }
+            
+        if schema_data:
+            new_schema = soup.new_tag('script', type='application/ld+json')
+            new_schema.string = json.dumps(schema_data, indent=2, ensure_ascii=False)
+            head.append(new_schema)
+            head.append(BeautifulSoup('\n  ', 'html.parser'))
+
     head.append(BeautifulSoup('\n  ', 'html.parser')) 
 
     # 7. Group D: Resources
@@ -230,6 +256,77 @@ def reorganize_head(soup, file_path, clean_path):
     for res in resources:
         head.append(res)
         head.append(BeautifulSoup('\n  ', 'html.parser'))
+
+def inject_breadcrumb(soup, file_path):
+    """Injects breadcrumb navigation for SEO."""
+    clean_path = get_clean_url(file_path)
+    if clean_path == '/' or clean_path == '/index':
+        return
+
+    # Check if breadcrumb already exists
+    if soup.find('nav', attrs={'aria-label': 'breadcrumb'}):
+        return
+
+    # Determine breadcrumb items
+    items = [('/', '首页')]
+    
+    if clean_path.startswith('/articles/'):
+        items.append(('/articles/', '深度文章'))
+        if clean_path != '/articles/':
+            # Try to get title from h1 or title tag
+            h1 = soup.find('h1')
+            title = h1.get_text().strip() if h1 else '文章详情'
+            # Truncate if too long
+            if len(title) > 20: title = title[:20] + '...'
+            items.append((None, title))
+    elif clean_path == '/privacy-policy':
+        items.append((None, '隐私政策'))
+    elif clean_path == '/terms-of-service':
+        items.append((None, '服务条款'))
+    elif clean_path == '/articles': # Handle /articles without trailing slash if needed, though get_clean_url handles it
+        items.append((None, '深度文章'))
+    else:
+        # Generic fallback
+        h1 = soup.find('h1')
+        title = h1.get_text().strip() if h1 else '详情'
+        items.append((None, title))
+
+    # Build HTML
+    lis = ""
+    for i, (url, text) in enumerate(items):
+        if i > 0:
+            lis += '<li class="text-slate-300">/</li>'
+        
+        if url:
+            lis += f'<li><a href="{url}" class="hover:text-emerald-600 transition">{text}</a></li>'
+        else:
+            lis += f'<li><span class="text-slate-900 font-medium line-clamp-1">{text}</span></li>'
+
+    html = f'''
+    <nav aria-label="breadcrumb" class="py-3 bg-slate-50 border-b border-slate-100">
+        <ol class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-xs text-slate-500">
+            {lis}
+        </ol>
+    </nav>
+    '''
+    
+    # Insert:
+    # 1. After fixed header (if exists)
+    # 2. Or at start of <main>
+    # 3. Or at start of <body> (after header)
+    
+    breadcrumb_tag = BeautifulSoup(html, 'html.parser')
+    
+    main = soup.find('main')
+    if main:
+        main.insert(0, breadcrumb_tag)
+    else:
+        # Fallback: try to insert after header
+        header = soup.find('header', class_='fixed top-0')
+        if header:
+            header.insert_after(breadcrumb_tag)
+        elif soup.body:
+            soup.body.insert(0, breadcrumb_tag)
 
 def inject_recommended_reading(soup, file_path):
     """Injects recommended reading block at the bottom of <article>."""
@@ -435,6 +532,9 @@ def run_build():
         # --- C. Head Reorganization ---
         clean_path = get_clean_url(file_path)
         reorganize_head(soup, file_path, clean_path)
+
+        # --- C2. Breadcrumbs ---
+        inject_breadcrumb(soup, file_path)
 
         # --- D. Recommended Reading ---
         inject_recommended_reading(soup, file_path)
