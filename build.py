@@ -107,9 +107,29 @@ def resolve_to_absolute(url, current_file_path):
 def process_links_in_soup(soup, file_path):
     """
     Traverses soup and converts all links to absolute, clean URLs.
+    Also adds rel="nofollow noopener noreferrer" to external links for security and SEO.
     """
     for a in soup.find_all('a', href=True):
-        a['href'] = resolve_to_absolute(a['href'], file_path)
+        raw_href = a['href']
+        # Resolve to absolute/clean first
+        resolved_href = resolve_to_absolute(raw_href, file_path)
+        a['href'] = resolved_href
+        
+        # Check for external link protection
+        # External links start with http/https and do not match our domain
+        if resolved_href.startswith(('http:', 'https:')):
+            if not resolved_href.startswith(DOMAIN):
+                # It is external
+                rel = a.get('rel', [])
+                if isinstance(rel, str):
+                    rel = rel.split()
+                
+                # Add required protection attributes
+                for val in ['nofollow', 'noopener', 'noreferrer']:
+                    if val not in rel:
+                        rel.append(val)
+                
+                a['rel'] = rel
         
     for link in soup.find_all('link', href=True):
         href = link['href']
