@@ -352,17 +352,19 @@ def inject_breadcrumb(soup, file_path):
 
 def inject_recommended_reading(soup, file_path):
     """Injects recommended reading block at the bottom of <article>."""
-    if 'articles' not in file_path or file_path.endswith('index.html'):
+    # Always try to remove existing block first (cleanup)
+    existing_reading = soup.find('div', id='recommended-reading')
+    if existing_reading:
+        existing_reading.decompose()
+
+    clean_path = get_clean_url(file_path)
+    # Exclude index pages, root pages, and non-article pages
+    if clean_path == '/' or clean_path.endswith('/index') or clean_path == '/articles' or clean_path == '/articles/' or 'articles' not in file_path:
         return
         
     article_tag = soup.find('article')
     if not article_tag:
         return
-        
-    # Remove existing recommended reading block if present
-    existing_reading = soup.find('div', id='recommended-reading')
-    if existing_reading:
-        existing_reading.decompose()
 
     recommendations = [
         (
@@ -427,6 +429,260 @@ def inject_recommended_reading(soup, file_path):
     </div>
     '''
     article_tag.append(BeautifulSoup(html, 'html.parser'))
+
+def generate_articles_index():
+    """
+    Generates the articles aggregation page (articles/index.html) with:
+    1. Pagination (if needed)
+    2. Classification (Tabs)
+    3. Auto-populated list of articles sorted by date
+    """
+    articles_index_path = os.path.join(PROJECT_ROOT, 'articles', 'index.html')
+    if not os.path.exists(articles_index_path):
+        print(f"Warning: Articles index not found at {articles_index_path}")
+        return
+        
+    print("Generating articles/index.html...")
+    content = read_file(articles_index_path)
+    try:
+        soup = BeautifulSoup(content, 'lxml')
+    except:
+        soup = BeautifulSoup(content, 'html.parser')
+
+    # 1. Gather all articles metadata
+    articles_data = []
+    articles_dir = os.path.join(PROJECT_ROOT, 'articles')
+    
+    for filename in os.listdir(articles_dir):
+        if not filename.endswith('.html') or filename == 'index.html':
+            continue
+            
+        file_path = os.path.join(articles_dir, filename)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            f_content = f.read()
+            
+        # Parse minimal info
+        try:
+            f_soup = BeautifulSoup(f_content, 'html.parser')
+        except:
+            continue
+            
+        # Title
+        title_tag = f_soup.find('h1')
+        title = title_tag.get_text().strip() if title_tag else filename
+        
+        # Desc
+        desc_tag = f_soup.find('meta', attrs={'name': 'description'})
+        desc = desc_tag['content'] if desc_tag else ""
+        
+        # Date
+        # Try dateModified first, then datePublished, then lastmod logic
+        date_str = "2026-01-01" # Default
+        date_mod = re.search(r'["\']dateModified["\']\s*:\s*["\'](\d{4}-\d{2}-\d{2})["\']', f_content)
+        date_pub = re.search(r'["\']datePublished["\']\s*:\s*["\'](\d{4}-\d{2}-\d{2})["\']', f_content)
+        if date_mod:
+            date_str = date_mod.group(1)
+        elif date_pub:
+            date_str = date_pub.group(1)
+            
+        # Category
+        cat_tag = f_soup.find('meta', attrs={'name': 'category'})
+        category = cat_tag['content'] if cat_tag else "其他"
+        
+        # URL
+        url = "/articles/" + filename.replace('.html', '')
+        
+        articles_data.append({
+            'title': title,
+            'desc': desc,
+            'date': date_str,
+            'category': category,
+            'url': url
+        })
+        
+    # Sort by date desc
+    articles_data.sort(key=lambda x: x['date'], reverse=True)
+    
+    # 2. Build HTML Grid
+    # Find container
+    grid_container = soup.find('div', role='list')
+    if not grid_container:
+        # Try to find by class if role missing
+        grid_container = soup.find('div', class_='grid md:grid-cols-2 gap-6')
+        
+    if grid_container:
+        grid_container.clear()
+        
+        for art in articles_data:
+            cat_display = art['category']
+            
+            # Category styling map
+            cat_color = "bg-slate-100 text-slate-600"
+            if "新手" in cat_display: cat_color = "bg-emerald-50 text-emerald-700"
+            elif "充值" in cat_display: cat_color = "bg-blue-50 text-blue-700"
+            elif "高阶" in cat_display: cat_color = "bg-purple-50 text-purple-700"
+            elif "故障" in cat_display: cat_color = "bg-red-50 text-red-700"
+            elif "评测" in cat_display: cat_color = "bg-orange-50 text-orange-700"
+            
+            card_html = f'''
+            <article class="h-full article-item" data-category="{cat_display}">
+                <a href="{art['url']}" class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-2 py-1 {cat_color} text-xs font-bold rounded flex items-center gap-1">
+                            {cat_display}
+                        </span>
+                        <span class="text-xs text-slate-400 font-mono">{art['date'].replace('-', '.')}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">{art['title']}</h3>
+                    <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">{art['desc']}</p>
+                </a>
+            </article>
+            '''
+            grid_container.append(BeautifulSoup(card_html, 'html.parser'))
+            
+    # 3. Add Filter Tabs (Insert before grid)
+    # Check if already exists
+    filter_container = soup.find('div', id='article-filters')
+    if not filter_container:
+        # Collect all unique categories
+        all_cats = sorted(list(set(d['category'] for d in articles_data)))
+        
+        tabs_html = f'''
+        <div id="article-filters" class="flex flex-wrap justify-center gap-2 mb-10">
+            <button class="filter-btn active px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:opacity-90" data-filter="all">全部</button>
+            {''.join([f'<button class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-bold transition hover:border-emerald-500 hover:text-emerald-600" data-filter="{c}">{c}</button>' for c in all_cats])}
+        </div>
+        '''
+        
+        # Insert before grid
+        if grid_container:
+            grid_container.insert_before(BeautifulSoup(tabs_html, 'html.parser'))
+            
+    # 4. Add Pagination Controls (Insert after grid)
+    pagination_container = soup.find('div', id='article-pagination')
+    if not pagination_container:
+        pag_html = f'''
+        <div id="article-pagination" class="mt-12 flex justify-center gap-2">
+            <!-- JS will populate this -->
+        </div>
+        '''
+        if grid_container:
+            grid_container.insert_after(BeautifulSoup(pag_html, 'html.parser'))
+
+    # 5. Inject JS logic
+    script_id = "articles-logic"
+    existing_script = soup.find('script', id=script_id)
+    if not existing_script:
+        js_code = '''
+        <script id="articles-logic">
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.article-item');
+            const filters = document.querySelectorAll('.filter-btn');
+            const paginationContainer = document.getElementById('article-pagination');
+            const itemsPerPage = 6; // Pagination limit
+            let currentPage = 1;
+            let currentFilter = 'all';
+            let visibleItems = [];
+
+            function filterItems(category) {
+                currentFilter = category;
+                visibleItems = [];
+                items.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    if (category === 'all' || itemCat === category) {
+                        item.style.display = 'none'; // Hide initially, show by pagination
+                        visibleItems.push(item);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                currentPage = 1;
+                renderPagination();
+                showPage(1);
+            }
+
+            function showPage(page) {
+                currentPage = page;
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                
+                // Hide all first (already done in filter, but ensure)
+                items.forEach(i => i.style.display = 'none');
+                
+                // Show current page items
+                visibleItems.slice(start, end).forEach(item => {
+                    item.style.display = 'block';
+                    // Add fade-in animation
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.3s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+                
+                renderPagination();
+                
+                // Scroll to top of list if needed
+                // const listTop = document.querySelector('#article-filters').offsetTop;
+                // window.scrollTo({top: listTop - 100, behavior: 'smooth'});
+            }
+
+            function renderPagination() {
+                paginationContainer.innerHTML = '';
+                const totalPages = Math.ceil(visibleItems.length / itemsPerPage);
+                
+                if (totalPages <= 1) return;
+
+                // Prev
+                const prevBtn = document.createElement('button');
+                prevBtn.className = `px-3 py-1 rounded border ${currentPage === 1 ? 'text-slate-300 border-slate-100 cursor-not-allowed' : 'text-slate-600 border-slate-200 hover:border-emerald-500'}`;
+                prevBtn.innerHTML = '←';
+                prevBtn.disabled = currentPage === 1;
+                prevBtn.onclick = () => showPage(currentPage - 1);
+                paginationContainer.appendChild(prevBtn);
+
+                // Pages
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = `px-3 py-1 rounded border font-bold ${currentPage === i ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-600 border-slate-200 hover:border-emerald-500'}`;
+                    btn.innerText = i;
+                    btn.onclick = () => showPage(i);
+                    paginationContainer.appendChild(btn);
+                }
+
+                // Next
+                const nextBtn = document.createElement('button');
+                nextBtn.className = `px-3 py-1 rounded border ${currentPage === totalPages ? 'text-slate-300 border-slate-100 cursor-not-allowed' : 'text-slate-600 border-slate-200 hover:border-emerald-500'}`;
+                nextBtn.innerHTML = '→';
+                nextBtn.disabled = currentPage === totalPages;
+                nextBtn.onclick = () => showPage(currentPage + 1);
+                paginationContainer.appendChild(nextBtn);
+            }
+
+            // Init Filters
+            filters.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filters.forEach(b => {
+                        b.classList.remove('bg-slate-900', 'text-white');
+                        b.classList.add('bg-white', 'text-slate-600');
+                    });
+                    btn.classList.remove('bg-white', 'text-slate-600');
+                    btn.classList.add('bg-slate-900', 'text-white');
+                    filterItems(btn.getAttribute('data-filter'));
+                });
+            });
+
+            // Initial Load
+            filterItems('all');
+        });
+        </script>
+        '''
+        if soup.body:
+            soup.body.append(BeautifulSoup(js_code, 'html.parser'))
+
+    write_file(articles_index_path, str(soup))
 
 def run_build():
     print("Starting build process...")
@@ -586,6 +842,9 @@ def run_build():
         write_file(file_path, output_html)
 
     print("Build completed.")
+    
+    # Auto-generate Articles Index (Pagination & Classification)
+    generate_articles_index()
     
     # Auto-generate Sitemap
     print("Generating sitemap...")
