@@ -25,7 +25,7 @@ class SEOAuditor:
         self.score = 100
         
         # Configuration - Ignore Lists
-        self.IGNORE_PATHS = ['.git', 'node_modules', '__pycache__']
+        self.IGNORE_PATHS = ['.git', 'node_modules', '__pycache__', 'MasterTool']
         self.IGNORE_URLS = ['/go/', 'cdn-cgi', 'javascript:', 'mailto:', 'tel:', '#']
         self.IGNORE_FILES = ['404.html', 'zujina.html', '_master_template.html'] # filenames containing 'google' handled in scan
         

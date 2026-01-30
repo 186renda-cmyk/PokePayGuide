@@ -1,9 +1,34 @@
 import os
 import datetime
+import re
 
 BASE_URL = "https://pokepayguide.top"
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 TODAY = datetime.date.today().isoformat()
+
+def get_lastmod_from_file(filepath):
+    """
+    Extracts dateModified or datePublished from HTML file.
+    Falls back to TODAY if not found.
+    """
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        # Try to find dateModified first
+        match = re.search(r'["\']dateModified["\']\s*:\s*["\'](\d{4}-\d{2}-\d{2})["\']', content)
+        if match:
+            return match.group(1)
+            
+        # Try to find datePublished
+        match = re.search(r'["\']datePublished["\']\s*:\s*["\'](\d{4}-\d{2}-\d{2})["\']', content)
+        if match:
+            return match.group(1)
+            
+    except Exception:
+        pass
+        
+    return TODAY
 
 def get_files(directory, prefix=""):
     files = []
@@ -42,9 +67,12 @@ def get_files(directory, prefix=""):
                 priority = "0.3"
                 changefreq = "monthly"
             
+            # Get accurate lastmod
+            lastmod = get_lastmod_from_file(path)
+
             files.append({
                 "loc": f"{BASE_URL}/{url_path}",
-                "lastmod": TODAY,
+                "lastmod": lastmod,
                 "changefreq": changefreq,
                 "priority": priority
             })
@@ -85,6 +113,10 @@ def main():
     sc_urls.extend(get_files(PROJECT_ROOT, ""))
     # Articles
     sc_urls.extend(get_files(os.path.join(PROJECT_ROOT, "articles"), "articles"))
+    
+    # Sort URLs: Priority (desc), LastMod (desc)
+    # This ensures home page is top, and newer articles appear before older ones
+    sc_urls.sort(key=lambda x: (float(x['priority']), x['lastmod']), reverse=True)
     
     with open(os.path.join(PROJECT_ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write(generate_xml(sc_urls))

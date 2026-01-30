@@ -1,8 +1,10 @@
 import os
 import re
 import json
+import random
 from datetime import datetime
 from bs4 import BeautifulSoup, Tag, Comment
+import generate_sitemap
 
 # Configuration
 PROJECT_ROOT = '/Users/xiaxingyu/Desktop/网站项目/PokePay'
@@ -337,19 +339,21 @@ def inject_recommended_reading(soup, file_path):
     if not article_tag:
         return
         
-    if soup.find('div', id='recommended-reading'):
-        return
+    # Remove existing recommended reading block if present
+    existing_reading = soup.find('div', id='recommended-reading')
+    if existing_reading:
+        existing_reading.decompose()
 
     recommendations = [
+        (
+            "/articles/pokepay-recharge-guide",
+            "PokePay 充值全能教程",
+            "2026最新：USDT、银行转账、Wise三种方式全覆盖。"
+        ),
         (
             "/articles/how-to-bind-pokepay-to-alipay",
             "绑定支付宝教程",
             "国内消费神器，支持淘宝、美团、线下扫码。"
-        ),
-        (
-            "/articles/pokepay-usdt-recharge",
-            "USDT 充值指南",
-            "TRC20 网络充值教程，3分钟极速到账。"
         ),
         (
             "/articles/pokepay-virtual-card-guide",
@@ -357,15 +361,30 @@ def inject_recommended_reading(soup, file_path):
             "手把手教你注册、KYC认证、开卡。新手入门第一课。"
         ),
         (
+            "/articles/pokepay-bind-paypal-chatgpt",
+            "绑定 PayPal 订阅 ChatGPT",
+            "解决 Plus 订阅支付失败问题，成功率 99%。"
+        ),
+        (
             "/articles/subscription-failure-checklist",
             "支付被拒？排查清单",
             "遇到 Card Declined 怎么办？余额、IP、地址全方位排查。"
+        ),
+        (
+            "/articles/pokepay-kaopu-ma",
+            "Pokepay 靠谱吗？",
+            "深度解析金融牌照、资金安全与合规性。"
         )
     ]
 
     current_clean = get_clean_url(file_path)
     valid_recs = [r for r in recommendations if r[0] != current_clean]
-    selected = valid_recs[:2]
+    
+    # Randomize recommendations to ensure better internal link coverage across the site
+    # This helps SEO by distributing link equity more evenly
+    random.shuffle(valid_recs)
+    
+    selected = valid_recs[:4]
     
     if not selected:
         return
@@ -547,6 +566,10 @@ def run_build():
         write_file(file_path, output_html)
 
     print("Build completed.")
+    
+    # Auto-generate Sitemap
+    print("Generating sitemap...")
+    generate_sitemap.main()
 
 if __name__ == '__main__':
     run_build()
