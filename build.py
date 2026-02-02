@@ -561,7 +561,7 @@ def inject_sidebar(soup, file_path):
                 </div>
             </div>
 
-            <a href="/go/pokepay" target="_blank" class="block w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold rounded-xl transition shadow-lg shadow-emerald-200 hover:-translate-y-0.5 mb-4">
+            <a href="/#tutorial" class="block w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold rounded-xl transition shadow-lg shadow-emerald-200 hover:-translate-y-0.5 mb-4">
                 立即免费开卡
             </a>
             
@@ -588,7 +588,7 @@ def inject_sidebar(soup, file_path):
                     推荐使用欧易 (OKX) 购买 USDT，通过 TRC20 网络充值到 Pokepay，通常 3 分钟内自动到账。
                 </p>
                 
-                <a href="/go/okx" target="_blank" class="block w-full py-3 bg-white text-slate-900 text-center font-bold rounded-xl hover:bg-slate-100 transition mb-3 shadow-lg">
+                <a href="/#okx-tutorial" class="block w-full py-3 bg-white text-slate-900 text-center font-bold rounded-xl hover:bg-slate-100 transition mb-3 shadow-lg">
                     获取 USDT (欧易)
                 </a>
                 <a href="/articles/okx-usdt-topup-trc20" class="block text-center text-xs text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
