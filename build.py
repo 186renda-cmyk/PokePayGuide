@@ -20,6 +20,13 @@ def write_file(path, content):
     # Keep newlines (\n, \r) and tabs (\t)
     if content:
         content = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', content)
+    
+    if os.path.exists(path):
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            old_content = f.read()
+        if old_content == content:
+            return
+
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
 
@@ -372,9 +379,27 @@ def inject_breadcrumb(soup, file_path):
     if clean_path == '/' or clean_path == '/index':
         return
 
-    # Check if breadcrumb already exists
-    if soup.find('nav', attrs={'aria-label': 'breadcrumb'}):
-        return
+    # 1. Cleanup: Remove ALL existing breadcrumbs to prevent duplicates
+    # Look for any nav with aria-label containing "breadcrumb" (case insensitive)
+    existing_crumbs = soup.find_all('nav', attrs={'aria-label': re.compile(r'breadcrumb', re.I)})
+    for crumb in existing_crumbs:
+        parent = crumb.parent
+        crumb.decompose()
+        
+        # Cleanup parent wrapper if it's now empty or was just a wrapper for the breadcrumb
+        if parent and parent.name == 'div':
+            # Check if it has meaningful content left
+            has_content = False
+            for child in parent.children:
+                if isinstance(child, Tag):
+                    has_content = True
+                    break
+                elif child.string and child.string.strip():
+                    has_content = True
+                    break
+            
+            if not has_content:
+                parent.decompose()
 
     # Determine breadcrumb items
     items = [('/', '首页')]
@@ -412,8 +437,8 @@ def inject_breadcrumb(soup, file_path):
             lis += f'<li><span class="text-slate-900 font-medium line-clamp-1">{text}</span></li>'
 
     html = f'''
-    <nav aria-label="breadcrumb" class="py-3 bg-slate-50 border-b border-slate-100">
-        <ol class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-xs text-slate-500">
+    <nav aria-label="breadcrumb" class="py-4 bg-slate-50/50 border-b border-slate-100">
+        <ol class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-sm text-slate-500">
             {lis}
         </ol>
     </nav>
@@ -431,18 +456,66 @@ def inject_breadcrumb(soup, file_path):
         main.insert(0, breadcrumb_tag)
     else:
         # Fallback: try to insert after header
-        header = soup.find('header', class_='fixed top-0')
+        # Use select_one for robust finding of fixed header
+        header = soup.select_one('header.fixed.top-0')
         if header:
             header.insert_after(breadcrumb_tag)
         elif soup.body:
             soup.body.insert(0, breadcrumb_tag)
 
+def ensure_body_padding(soup):
+    """
+    Ensures the body has top padding if a fixed header is present.
+    This prevents content from being hidden behind the header.
+    """
+    header = soup.select_one('header.fixed.top-0')
+    if not header:
+        return
+
+    if not soup.body:
+        return
+
+    # Check existing classes
+    classes = soup.body.get('class', [])
+    if isinstance(classes, str):
+        classes = classes.split()
+    
+    # Check if any pt- class exists (e.g., pt-20, pt-24, pt-[100px])
+    has_pt = any(c.startswith('pt-') for c in classes)
+    
+    if not has_pt:
+        # Add pt-24 (6rem = 96px) to safely clear h-20 (5rem = 80px) header
+        classes.append('pt-24')
+        soup.body['class'] = classes
+
 def inject_recommended_reading(soup, file_path):
     """Injects recommended reading block at the bottom of <article>."""
-    # Always try to remove existing block first (cleanup)
+    # 1. Cleanup: Remove existing automated block
     existing_reading = soup.find('div', id='recommended-reading')
     if existing_reading:
         existing_reading.decompose()
+
+    # 2. Cleanup: Remove manual/legacy blocks
+    # Look for headers containing keywords
+    keywords = ["推荐阅读", "更多实用教程", "相关阅读", "延伸阅读"]
+    headers = soup.find_all(['h2', 'h3', 'h4'])
+    for header in headers:
+        text = header.get_text().strip()
+        # Exact match or starts with match preferred
+        if any(text == k or text.startswith(k) for k in keywords):
+            parent = header.parent
+            # Check if parent is a container (div/section) and looks like a sidebar/footer component
+            if parent and parent.name in ['div', 'section']:
+                # Heuristic 1: It has a background color class (common in our legacy blocks)
+                classes = parent.get('class', [])
+                if isinstance(classes, list): classes = ' '.join(classes)
+                
+                # Heuristic 2: It contains a list of links
+                has_links = parent.find('ul') or parent.find('div', class_='grid')
+                
+                if (('bg-' in classes or 'border' in classes) and has_links) or ('mt-' in classes and has_links):
+                    # It's likely a legacy block
+                    parent.decompose()
 
     clean_path = get_clean_url(file_path)
     # Exclude index pages, root pages, and non-article pages
@@ -480,9 +553,19 @@ def inject_recommended_reading(soup, file_path):
             "遇到 Card Declined 怎么办？余额、IP、地址全方位排查。"
         ),
         (
+            "/articles/pokepay-withdrawal-guide",
+            "PokePay 提现全攻略",
+            "USDT、ATM取现、Wise汇款三种提现方式详解。"
+        ),
+        (
+            "/articles/pokepay-paolu-fengkong",
+            "Pokepay 跑路了吗？风控解读",
+            "账户被封/停用怎么办？2026最新退款与解封指南。"
+        ),
+        (
             "/articles/pokepay-kaopu-ma",
-            "Pokepay 靠谱吗？",
-            "深度解析金融牌照、资金安全与合规性。"
+            "Pokepay 靠谱吗？(2026评测)",
+            "深度解析美国MSB牌照、资金隔离与潜在风险。"
         )
     ]
 
@@ -501,14 +584,14 @@ def inject_recommended_reading(soup, file_path):
     items_html = ""
     for url, title, desc in selected:
         items_html += f'''
-            <a href="{url}" class="block group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-emerald-500 transition">
+            <a href="{url}" class="block group bg-slate-50 p-4 rounded-xl border border-slate-100 hover:border-emerald-500 transition no-underline">
                 <div class="font-bold text-slate-900 group-hover:text-emerald-600 mb-2">{title}</div>
                 <p class="text-xs text-slate-500">{desc}</p>
             </a>
         '''
 
     html = f'''
-    <div id="recommended-reading" class="mt-12 pt-8 border-t border-slate-200">
+    <div id="recommended-reading" class="mt-12 pt-8 border-t border-slate-200 not-prose">
         <h3 class="text-xl font-bold text-slate-900 mb-6">推荐阅读</h3>
         <div class="grid md:grid-cols-2 gap-6">
             {items_html}
@@ -707,75 +790,236 @@ def inject_sidebar(soup, file_path):
     aside_col = soup.new_tag('aside', **{'class': 'lg:col-span-4 space-y-8'})
     aside_col.append(new_content)
     
-    # Move content_element into main_col
-    content_element.extract()
-    
-    # Optional: If content_element has max-w constraint that is too small, we might want to relax it?
-    # But usually keeping it is safe (just centered inside col-8).
-    # However, if content_element IS the wrapper we want to replace, we should perhaps extract its CHILDREN?
-    # Case: <div class="max-w-3xl">...</div>
-    # If we put this DIV inside col-8, it's fine.
-    
-    main_col.append(content_element)
-    
-    # Assemble grid
+    # Assemble grid structure
     grid_wrapper.append(main_col)
     grid_wrapper.append(aside_col)
     
-    # Determine where to place the grid_wrapper
-    # If we found content_element via Fallback 2 (wrapper div), parent is likely body or a layout wrapper.
+    # Swap content_element with grid_wrapper in the DOM
+    content_element.replace_with(grid_wrapper)
     
-    # Logic to replace parent if parent was just a wrapper
-    # But now content_element MIGHT BE that wrapper.
-    
-    # If content_element was "main" or "div.max-w", we extracted it.
-    # So we should put grid_wrapper where content_element was.
-    
-    if parent:
-        # We can't use replace_with on extracted element.
-        # But we know where it was.
-        # Wait, if we extracted it, we lost the position?
-        # No, extract() removes it.
-        # We should have inserted grid_wrapper BEFORE extracting?
-        pass
+    # Move the original content into the main column
+    main_col.append(content_element)
 
-    # Better approach: Insert grid_wrapper before content_element, then move content_element inside.
-    # But we need to handle the case where we wanted to REPLACE content_element's parent?
-    
-    # Let's simplify:
-    # We put grid_wrapper exactly where content_element was.
-    # But if content_element was the ONLY child of a parent we wanted to replace...
-    
-    # Let's just append grid_wrapper to parent? No, order matters.
-    # We should use insert_after or insert_before?
-    # Actually, we can just append to parent if parent is body/main.
-    # But if parent has other siblings (header, footer), we need to maintain order.
-    
-    # Revert the extract logic slightly:
-    # 1. Create grid_wrapper.
-    # 2. Insert grid_wrapper after content_element.
-    # 3. Move content_element inside grid_wrapper -> main_col.
-    
-    # But wait, insert after requires content_element to be in tree.
-    # Yes.
-    
-    # But wait, if content_element has "mx-auto", it centers itself.
-    # If we put it in col-8, it centers in col-8.
-    
-    # Let's try this:
-    if parent:
-        # Check if parent is suitable for replacement (e.g. if content_element is the only significant child)
-        # But easier is just to swap content_element with grid_wrapper in the tree.
-        content_element.replace_with(grid_wrapper)
-        # Now content_element is detached.
-        main_col.append(content_element)
-        
-        # If content_element had classes like 'py-12', we might have doubled padding?
-        # grid_wrapper has 'py-12'. content_element might have 'py-12'.
-        # It's okay, a bit of extra padding is better than broken layout.
-        
     return
 
+
+def check_and_fix_articles():
+    """
+    Checks all article files for missing time, author, and removes title numbers.
+    Injects default values if missing.
+    """
+    print("Checking and fixing articles...")
+    articles_dir = os.path.join(PROJECT_ROOT, 'articles')
+    if not os.path.exists(articles_dir):
+        return
+
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    
+    for filename in os.listdir(articles_dir):
+        if not filename.endswith('.html') or filename == 'index.html':
+            continue
+            
+        file_path = os.path.join(articles_dir, filename)
+        content = read_file(file_path)
+        try:
+            soup = BeautifulSoup(content, 'html.parser')
+        except:
+            continue
+            
+        changed = False
+        
+        # 1. Check Title Numbering
+        h1 = soup.find('h1')
+        if h1:
+            title_text = h1.get_text()
+            # Remove leading "1. ", "2. ", etc.
+            new_title = re.sub(r'^\d+\.?\s*', '', title_text)
+            if new_title != title_text:
+                # Determine if h1 has children tags (like span)
+                if h1.find(True): 
+                    # Complex h1 (e.g., with spans), try to clean the first text node if it's the number
+                    # This is tricky, simpler to just replace the text if it's plain text, 
+                    # or if it starts with a number, we might need manual handling.
+                    # For now, let's assume if we detected the pattern in get_text(), we can try to fix it carefully.
+                    # A safer approach for complex h1 is to only replace if it's pure text, 
+                    # or iterate contents.
+                    pass 
+                else:
+                    h1.string = new_title
+                    changed = True
+
+        # 2. Check JSON-LD for Date and Author
+        schema_script = soup.find('script', type='application/ld+json')
+        article_date = today_str
+        article_author = "PokepayGuide"
+        
+        if schema_script:
+            try:
+                data = json.loads(schema_script.string)
+                
+                # Check Author
+                if 'author' not in data:
+                    data['author'] = {"@type": "Organization", "name": "PokepayGuide"}
+                    changed = True
+                else:
+                    if isinstance(data['author'], dict):
+                        article_author = data['author'].get('name', 'PokepayGuide')
+                    elif isinstance(data['author'], str):
+                        article_author = data['author']
+                
+                # Check Date
+                if 'datePublished' not in data:
+                    data['datePublished'] = today_str
+                    changed = True
+                else:
+                    article_date = data['datePublished']
+
+                # Fix: Do not force dateModified to today if not present
+                # Also, revert if dateModified is today but datePublished is different (likely added by previous script run)
+                if 'dateModified' in data:
+                    if data['dateModified'] == today_str and data.get('datePublished') != today_str:
+                        del data['dateModified']
+                        changed = True
+                    else:
+                        # Update article_date to modified date if it exists and is valid
+                        article_date = data['dateModified']
+                    
+                if changed:
+                    schema_script.string = json.dumps(data, indent=2, ensure_ascii=False)
+            except:
+                pass
+        
+        # 3. Inject Visible Metadata (Time/Author) after H1
+        # Check if already exists
+        meta_exists = False
+        if h1:
+            next_sibling = h1.find_next_sibling()
+            if next_sibling and next_sibling.name == 'div' and 'text-slate-500' in next_sibling.get('class', []):
+                # Simple heuristic: check if it looks like our metadata block
+                if next_sibling.find('time') or 'PokepayGuide' in next_sibling.get_text():
+                    meta_exists = True
+        
+        if h1 and not meta_exists:
+            # Create metadata block
+            meta_div = soup.new_tag('div', **{'class': 'flex items-center gap-4 text-sm text-slate-500 mb-8 font-medium'})
+            
+            # Author badge
+            author_div = soup.new_tag('div', **{'class': 'flex items-center gap-2'})
+            author_span = soup.new_tag('span', **{'class': 'bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded text-xs font-bold'})
+            author_span.string = article_author
+            author_div.append(author_span)
+            meta_div.append(author_div)
+            
+            # Dot separator
+            dot = soup.new_tag('div', **{'class': 'w-1 h-1 rounded-full bg-slate-300'})
+            meta_div.append(dot)
+            
+            # Time
+            time_tag = soup.new_tag('time', datetime=article_date)
+            # Format date to YYYY年MM月DD日 if possible
+            try:
+                dt = datetime.strptime(article_date, '%Y-%m-%d')
+                time_str = dt.strftime('%Y年%m月%d日')
+            except:
+                time_str = article_date
+            time_tag.string = time_str
+            meta_div.append(time_tag)
+            
+            h1.insert_after(meta_div)
+            changed = True
+
+        if changed:
+            print(f"Fixed metadata/title for {filename}")
+            write_file(file_path, str(soup))
+
+def update_homepage_articles(articles_data):
+    """
+    Updates the 'Latest Guides' section in index.html with the top 3 latest articles.
+    """
+    print("Updating homepage articles...")
+    index_path = os.path.join(PROJECT_ROOT, 'index.html')
+    if not os.path.exists(index_path):
+        return
+
+    content = read_file(index_path)
+    try:
+        soup = BeautifulSoup(content, 'html.parser')
+    except:
+        soup = BeautifulSoup(content, 'lxml')
+
+    # Find the articles section
+    articles_section = soup.find('section', id='articles')
+    if not articles_section:
+        return
+
+    # Find the grid container (grid-cols-1 md:grid-cols-3)
+    grid_container = articles_section.find('div', class_=re.compile(r'grid.*grid-cols-3'))
+    if not grid_container:
+        return
+
+    # Clear existing
+    grid_container.clear()
+
+    # Take top 3
+    top_articles = articles_data[:3]
+    
+    # Styles mapping
+    styles = [
+        # 1. Emerald (Green)
+        {
+            'bg_gradient': 'from-emerald-50 to-teal-50',
+            'blur_color': 'bg-[#10a37f]/10',
+            'tag_color': 'text-[#10a37f]',
+            'hover_text': 'group-hover:text-emerald-600',
+            'hover_border': 'hover:border-emerald-200',
+            'btn_color': 'text-emerald-600',
+            'icon': '<svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg>'
+        },
+        # 2. Blue
+        {
+            'bg_gradient': 'from-blue-50 to-indigo-50',
+            'blur_color': 'bg-blue-400/10',
+            'tag_color': 'text-blue-600',
+            'hover_text': 'group-hover:text-blue-600',
+            'hover_border': 'hover:border-blue-200',
+            'btn_color': 'text-blue-600',
+            'icon': '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>'
+        },
+        # 3. Orange
+        {
+            'bg_gradient': 'from-orange-50 to-amber-50',
+            'blur_color': 'bg-orange-400/10',
+            'tag_color': 'text-orange-600',
+            'hover_text': 'group-hover:text-orange-600',
+            'hover_border': 'hover:border-orange-200',
+            'btn_color': 'text-orange-600',
+            'icon': '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>'
+        }
+    ]
+
+    for i, art in enumerate(top_articles):
+        style = styles[i % len(styles)]
+        
+        card_html = f'''
+        <article class="h-full">
+            <a href="{art['url']}" class="group flex flex-col h-full bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl {style['hover_border']} transition duration-300 overflow-hidden hover:-translate-y-1">
+                <div class="h-48 bg-gradient-to-br {style['bg_gradient']} relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 {style['blur_color']} rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-bold {style['tag_color']} shadow-sm flex items-center gap-1">
+                        {style['icon']} {art['category']}
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3 {style['hover_text']} transition">{art['title']}</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-1">{art['desc'][:60]}...</p>
+                    <div class="flex items-center text-sm font-bold {style['btn_color']}">阅读全文 <span class="ml-2 group-hover:translate-x-1 transition">→</span></div>
+                </div>
+            </a>
+        </article>
+        '''
+        grid_container.append(BeautifulSoup(card_html, 'html.parser'))
+
+    write_file(index_path, str(soup))
 
 def generate_articles_index():
     """
@@ -816,7 +1060,9 @@ def generate_articles_index():
             
         # Title
         title_tag = f_soup.find('h1')
-        title = title_tag.get_text().strip() if title_tag else filename
+        raw_title = title_tag.get_text().strip() if title_tag else filename
+        # Clean title (remove leading numbers like "1. ", "2. ")
+        title = re.sub(r'^\d+\.?\s*', '', raw_title)
         
         # Desc
         desc_tag = f_soup.find('meta', attrs={'name': 'description'})
@@ -850,7 +1096,44 @@ def generate_articles_index():
     # Sort by date desc
     articles_data.sort(key=lambda x: x['date'], reverse=True)
     
-    # 2. Build HTML Grid
+    # 2. Update Homepage Articles (Top 3)
+    update_homepage_articles(articles_data)
+    
+    # 2.1 Update Header Count
+    header_p = soup.find('header', class_='text-center mb-16')
+    if header_p:
+        p_tag = header_p.find('p', class_='text-slate-500')
+        if p_tag:
+            p_tag.string = f"共收录 {len(articles_data)} 篇实战文章，助你玩转全球支付"
+
+    # 2.2 Update JSON-LD List
+    schema_script = soup.find('script', type='application/ld+json')
+    if schema_script:
+        try:
+            data = json.loads(schema_script.string)
+            # Find CollectionPage or ItemList
+            graph = data.get('@graph', [])
+            for item in graph:
+                if item.get('@type') == 'CollectionPage' and 'mainEntity' in item:
+                    item_list = item['mainEntity']
+                    item_list['numberOfItems'] = len(articles_data)
+                    
+                    new_items = []
+                    for i, art in enumerate(articles_data):
+                        new_items.append({
+                            "@type": "ListItem",
+                            "position": i + 1,
+                            "url": DOMAIN + art['url'],
+                            "name": art['title']
+                        })
+                    item_list['itemListElement'] = new_items
+                    break
+            
+            schema_script.string = json.dumps(data, indent=2, ensure_ascii=False)
+        except:
+            pass
+
+    # 3. Build HTML Grid
     # Find container
     grid_container = soup.find('div', role='list')
     if not grid_container:
@@ -1034,6 +1317,9 @@ def generate_articles_index():
 def run_build():
     print("Starting build process...")
     
+    # 0. Check and Fix Articles Metadata
+    check_and_fix_articles()
+    
     # 1. Load Master Layout & Prepare Header/Footer/MobileNav
     if not os.path.exists(MASTER_LAYOUT_PATH):
         print(f"Error: Master layout not found at {MASTER_LAYOUT_PATH}")
@@ -1088,7 +1374,7 @@ def run_build():
 
         # --- B. Layout Sync ---
         # 1. Sync Header
-        if master_header:
+        if master_header and 'SEO_Dashboard.html' not in file_path:
             # Try to find existing header to replace
             target_header = soup.select_one('header.fixed.top-0')
             if not target_header:
@@ -1136,7 +1422,7 @@ def run_build():
                 fixed_tops[i].decompose()
 
         # 2. Sync Footer
-        if master_footer:
+        if master_footer and 'SEO_Dashboard.html' not in file_path:
             target_footer = soup.find('footer')
             if target_footer:
                 new_footer = BeautifulSoup(str(master_footer), 'html.parser').find('footer')
@@ -1148,7 +1434,7 @@ def run_build():
                     soup.body.append(new_footer)
 
         # 3. Sync Mobile Nav
-        if master_mobile_nav:
+        if master_mobile_nav and 'SEO_Dashboard.html' not in file_path:
             # Look for existing mobile nav
             # It usually has aria-label="Mobile Navigation" OR class="fixed bottom-0"
             target_mobile_nav = soup.find('nav', attrs={'aria-label': 'Mobile Navigation'})
@@ -1172,12 +1458,16 @@ def run_build():
         # --- C. Head Reorganization ---
         clean_path = get_clean_url(file_path)
         reorganize_head(soup, file_path, clean_path)
+        
+        # --- C0. Ensure Layout (Body Padding) ---
+        ensure_body_padding(soup)
 
         # --- C1. Inject Sidebar ---
         inject_sidebar(soup, file_path)
 
         # --- C2. Breadcrumbs ---
-        inject_breadcrumb(soup, file_path)
+        if 'SEO_Dashboard.html' not in file_path:
+            inject_breadcrumb(soup, file_path)
 
         # --- D. Recommended Reading ---
         inject_recommended_reading(soup, file_path)
