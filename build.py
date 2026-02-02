@@ -12,10 +12,14 @@ DOMAIN = 'https://pokepayguide.top'
 MASTER_LAYOUT_PATH = os.path.join(PROJECT_ROOT, 'index.html')
 
 def read_file(path):
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(path, 'r', encoding='utf-8', errors='replace') as f:
         return f.read()
 
 def write_file(path, content):
+    # Remove control characters that might cause issues (like \x01)
+    # Keep newlines (\n, \r) and tabs (\t)
+    if content:
+        content = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', content)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
 
@@ -145,45 +149,123 @@ def reorganize_head(soup, file_path, clean_path):
     """
     Reorganizes the <head> section for Global SEO.
     """
-    head = soup.head
-    if not head:
-        return
+    # 1. Extract existing data (Priority: Head > Body/Global)
+    title_text = ""
+    desc_content = ""
+    kw_content = ""
+    cat_content = ""
+    
+    # Try finding in head first
+    if soup.head:
+        t = soup.head.find('title')
+        if t and t.string: title_text = t.string
+        
+        d = soup.head.find('meta', attrs={'name': 'description'})
+        if d: desc_content = d.get('content', '')
+        
+        k = soup.head.find('meta', attrs={'name': 'keywords'})
+        if k: kw_content = k.get('content', '')
 
-    # 1. Extract existing data
-    title_tag = head.find('title')
-    title_text = title_tag.string if title_tag else ""
-    
-    desc_tag = head.find('meta', attrs={'name': 'description'})
-    desc_content = desc_tag['content'] if desc_tag else ""
-    
-    kw_tag = head.find('meta', attrs={'name': 'keywords'})
-    kw_content = kw_tag['content'] if kw_tag else ""
-    
-    # Extract Scripts and Styles
+        c = soup.head.find('meta', attrs={'name': 'category'})
+        if c: cat_content = c.get('content', '')
+
+    # Fallback: Find anywhere (in case structure is broken)
+    if not title_text:
+        t = soup.find('title')
+        if t and t.string: title_text = t.string
+        
+    if not desc_content:
+        d = soup.find('meta', attrs={'name': 'description'})
+        if d: desc_content = d.get('content', '')
+        
+    if not kw_content:
+        k = soup.find('meta', attrs={'name': 'keywords'})
+        if k: kw_content = k.get('content', '')
+
+    if not cat_content:
+        c = soup.find('meta', attrs={'name': 'category'})
+        if c: cat_content = c.get('content', '')
+
+    # Extract Resources from HEAD (we only want to preserve what was originally in head)
+    # If structure is broken and scripts are in body, we generally leave them in body, 
+    # unless we are sure they belong in head.
     resources = []
-    for tag in head.find_all(['script', 'style', 'link']):
-        if tag.name == 'link' and tag.get('rel') != ['stylesheet'] and 'icon' not in str(tag.get('rel')):
-             # Skip canonical/hreflang as we will regenerate them
-             if tag.get('rel') in [['canonical'], ['alternate']]:
-                 continue
-        resources.append(tag)
-
-    # Extract Icons
-    icons = head.find_all('link', attrs={'rel': re.compile(r'icon')})
-
-    # Extract Schema (Keep existing ones if not replaced later)
-    schemas = head.find_all('script', type='application/ld+json')
-
-    # 2. Clear Head
-    head.clear()
+    icons = []
+    schemas = []
     
-    # 3. Insert Charset & Viewport
+    # Enhanced extraction: Scan global for Link/Style/Schema/Tailwind, and Head for other Scripts
+    for tag in soup.find_all(['link', 'style', 'script']):
+        # Check if tag is inside head
+        is_in_head = False
+        parent = tag.parent
+        while parent:
+            if parent.name == 'head':
+                is_in_head = True
+                break
+            parent = parent.parent
+            
+        should_extract = False
+        
+        if tag.name == 'link':
+            rel = tag.get('rel')
+            if isinstance(rel, list): rel = rel[0]
+            
+            # SEO links will be deleted later, don't extract them
+            if rel in ['canonical', 'alternate']:
+                continue
+                
+            if 'icon' in str(rel):
+                icons.append(tag)
+                should_extract = True
+            else:
+                # Stylesheets, preconnect, etc.
+                resources.append(tag)
+                should_extract = True
+                
+        elif tag.name == 'style':
+            resources.append(tag)
+            should_extract = True
+            
+        elif tag.name == 'script':
+            if tag.get('type') == 'application/ld+json':
+                schemas.append(tag)
+                should_extract = True
+            elif tag.get('src') and 'tailwindcss' in tag.get('src'):
+                resources.append(tag)
+                should_extract = True
+            elif is_in_head:
+                resources.append(tag)
+                should_extract = True
+        
+        if should_extract:
+            tag.extract()
+
+    # 2. GLOBAL CLEANUP: Remove all SEO tags from the ENTIRE document
+    # This fixes the issue where meta tags spilled into body
+    for tag in soup.find_all(['title', 'meta']):
+        tag.decompose()
+        
+    for tag in soup.find_all('link'):
+        rel = tag.get('rel')
+        if isinstance(rel, list): rel = rel[0]
+        if rel in ['canonical', 'alternate']:
+            tag.decompose()
+
+    # 3. Ensure Head Exists and is Clean
+    if not soup.head:
+        head = soup.new_tag('head')
+        soup.insert(0, head)
+    else:
+        head = soup.head
+        head.clear()
+    
+    # 4. Insert Charset & Viewport
     head.append(BeautifulSoup('<meta charset="utf-8">', 'html.parser'))
     head.append(BeautifulSoup('\n  ', 'html.parser'))
     head.append(BeautifulSoup('<meta name="viewport" content="width=device-width, initial-scale=1">', 'html.parser'))
     head.append(BeautifulSoup('\n  ', 'html.parser'))
 
-    # 4. Group A: Basic SEO
+    # 5. Group A: Basic SEO
     if title_text:
         new_title = soup.new_tag('title')
         new_title.string = title_text
@@ -200,13 +282,18 @@ def reorganize_head(soup, file_path, clean_path):
         head.append(new_kw)
         head.append(BeautifulSoup('\n  ', 'html.parser'))
 
+    if cat_content:
+        new_cat = soup.new_tag('meta', attrs={'name': 'category', 'content': cat_content})
+        head.append(new_cat)
+        head.append(BeautifulSoup('\n  ', 'html.parser'))
+
     # Canonical
     canonical_url = DOMAIN + clean_path
     new_canonical = soup.new_tag('link', rel='canonical', href=canonical_url)
     head.append(new_canonical)
     head.append(BeautifulSoup('\n\n  ', 'html.parser')) 
 
-    # 5. Group B: Indexing & Geo (Global Targeting)
+    # 6. Group B: Indexing & Geo (Global Targeting)
     head.append(BeautifulSoup('<meta name="robots" content="index, follow, max-image-preview:large">', 'html.parser'))
     head.append(BeautifulSoup('\n  ', 'html.parser'))
     head.append(BeautifulSoup('<meta name="distribution" content="global">', 'html.parser'))
@@ -226,7 +313,7 @@ def reorganize_head(soup, file_path, clean_path):
         head.append(BeautifulSoup('\n  ', 'html.parser'))
     head.append(BeautifulSoup('\n', 'html.parser'))
 
-    # 6. Group C: Schema
+    # 7. Group C: Schema
     # Preserve existing schemas but clean their content
     has_schema = False
     for schema in schemas:
@@ -270,7 +357,7 @@ def reorganize_head(soup, file_path, clean_path):
 
     head.append(BeautifulSoup('\n  ', 'html.parser')) 
 
-    # 7. Group D: Resources
+    # 8. Group D: Resources
     for icon in icons:
         head.append(icon)
         head.append(BeautifulSoup('\n  ', 'html.parser'))
@@ -429,6 +516,266 @@ def inject_recommended_reading(soup, file_path):
     </div>
     '''
     article_tag.append(BeautifulSoup(html, 'html.parser'))
+
+def inject_sidebar(soup, file_path):
+    """
+    Injects the e-commerce style sidebar into article pages.
+    Replaces the content of existing <aside> tag.
+    """
+    # Only target article pages (usually they have an aside, but we check path too to be safe)
+    # or just check if <aside> exists.
+    
+    aside = soup.find('aside')
+    if not aside:
+        # Check if we should skip based on path logic first
+        if '/articles/' not in file_path and 'articles' not in file_path:
+             return
+        if file_path.endswith('index.html'): 
+             return
+
+    # Create the new sidebar HTML
+    # Fix: Move sticky class to the wrapper div to prevent cards overlapping
+    sidebar_html = '''
+    <div class="space-y-8 sticky top-24">
+        <!-- Card 1: Open Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6">
+            <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-sm">RECOMMENDED</div>
+            <div class="text-center mb-6">
+                 <div class="w-16 h-16 bg-emerald-50 rounded-2xl mx-auto flex items-center justify-center mb-4 text-3xl shadow-sm border border-emerald-100">💳</div>
+                 <h3 class="text-xl font-bold text-slate-900">Pokepay 虚拟卡</h3>
+                 <p class="text-sm text-slate-500 mt-2">一站式解决 ChatGPT、OnlyFans 支付难题</p>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
+                    <span>0 月费，无隐形费用</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
+                    <span>支持支付宝/微信绑卡消费</span>
+                </div>
+                 <div class="flex items-center gap-3 text-sm text-slate-600">
+                    <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
+                    <span>USDT 充值，实时到账</span>
+                </div>
+            </div>
+
+            <a href="/go/pokepay" target="_blank" class="block w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-center font-bold rounded-xl transition shadow-lg shadow-emerald-200 hover:-translate-y-0.5 mb-4">
+                立即免费开卡
+            </a>
+            
+            <div class="text-center bg-slate-50 rounded-lg py-3 border border-slate-100 dashed">
+                <span class="text-xs text-slate-400 block mb-1">独家优惠码 (VIP费率)</span>
+                <code class="text-lg font-mono font-bold text-emerald-600 select-all cursor-pointer bg-white px-2 py-0.5 rounded border border-emerald-100">365888</code>
+            </div>
+        </div>
+
+        <!-- Card 2: USDT Recharge -->
+        <div class="bg-slate-900 rounded-2xl shadow-lg border border-slate-800 p-6 text-white relative overflow-hidden group">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                     <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl backdrop-blur-sm border border-white/10">₮</div>
+                     <div>
+                         <h3 class="text-lg font-bold">USDT 充值通道</h3>
+                         <p class="text-xs text-slate-400">安全 · 快捷 · 低手续费</p>
+                     </div>
+                </div>
+                
+                <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                    推荐使用欧易 (OKX) 购买 USDT，通过 TRC20 网络充值到 Pokepay，通常 3 分钟内自动到账。
+                </p>
+                
+                <a href="/go/okx" target="_blank" class="block w-full py-3 bg-white text-slate-900 text-center font-bold rounded-xl hover:bg-slate-100 transition mb-3 shadow-lg">
+                    获取 USDT (欧易)
+                </a>
+                <a href="/articles/okx-usdt-topup-trc20" class="block text-center text-xs text-slate-400 hover:text-white transition flex items-center justify-center gap-1">
+                    <span>查看详细充值教程</span>
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    '''
+    
+    new_content = BeautifulSoup(sidebar_html, 'html.parser')
+
+    # Strategy 1: Replace existing <aside>
+    aside = soup.find('aside')
+    if aside:
+        aside.clear()
+        aside.append(new_content)
+        
+        # Enhanced Strategy 1: Ensure Layout is Grid
+        parent = aside.parent
+        if parent and parent.name != 'body':
+            # Check if parent is already a grid
+            p_classes = parent.get('class', [])
+            if isinstance(p_classes, list): p_classes_str = ' '.join(p_classes)
+            else: p_classes_str = str(p_classes)
+            
+            if 'grid-cols-12' not in p_classes_str:
+                # Need to upgrade layout to Grid
+                
+                # 1. Apply Grid to Parent
+                # Ensure it has max-w constraint too if missing
+                new_p_classes = ['max-w-7xl', 'mx-auto', 'px-4', 'sm:px-6', 'lg:px-8', 'py-12', 'grid', 'grid-cols-1', 'lg:grid-cols-12', 'gap-12']
+                # We overwrite/merge classes. Let's just ensure grid classes are present.
+                # Actually, replacing is safer to ensure consistency.
+                parent['class'] = new_p_classes
+                
+                # 2. Fix Aside Width
+                a_classes = aside.get('class', [])
+                if isinstance(a_classes, str): a_classes = a_classes.split()
+                if 'lg:col-span-4' not in a_classes:
+                    a_classes.append('lg:col-span-4')
+                # Remove space-y-8 if duplicated? No, it's fine.
+                aside['class'] = a_classes
+                
+                # 3. Fix Main Content Width (The sibling)
+                # Usually <main> or <div> or <article>
+                sibling = aside.find_previous_sibling()
+                if sibling:
+                    s_classes = sibling.get('class', [])
+                    if isinstance(s_classes, str): s_classes = s_classes.split()
+                    
+                    # Remove old constraints that might conflict
+                    s_classes = [c for c in s_classes if c not in ['max-w-7xl', 'mx-auto', 'px-4', 'py-12']]
+                    
+                    if 'lg:col-span-8' not in s_classes:
+                        s_classes.append('lg:col-span-8')
+                    sibling['class'] = s_classes
+
+        return
+
+    # Strategy 2: If no <aside>, create a 2-column layout
+    # Try to find the "main content" element
+    # Priority: <article> -> <main> -> <div with h1 and max-w>
+    
+    content_element = soup.find('article')
+    
+    # Check if content_element is already in a grid layout
+    if content_element:
+        p = content_element.parent
+        if p:
+            classes = p.get('class', [])
+            if isinstance(classes, list): classes = ' '.join(classes)
+            if 'grid-cols-12' in str(classes):
+                # print(f"Skipping layout injection for {file_path}: Already has grid.")
+                return
+
+    if not content_element:
+        # Fallback 1: Find a main tag that is NOT full width (has max-w)
+        # If main is full width, it might contain the grid itself?
+        m = soup.find('main')
+        if m:
+             classes = m.get('class', [])
+             if isinstance(classes, list): classes = ' '.join(classes)
+             if 'max-w-' in str(classes) or 'container' in str(classes):
+                 content_element = m
+    
+    if not content_element:
+        # Fallback 2: Find a div with h1 and max-w class
+        h1 = soup.find('h1')
+        if h1:
+            # Go up until we find a container with max-w
+            curr = h1.parent
+            while curr and curr.name != 'body':
+                classes = curr.get('class', [])
+                if isinstance(classes, list): classes = ' '.join(classes)
+                if 'max-w-' in str(classes):
+                    content_element = curr
+                    break
+                curr = curr.parent
+    
+    if not content_element:
+        return
+
+    # We need to wrap content_element and new aside in a grid container
+    # Find the container of content_element
+    parent = content_element.parent
+    
+    # Create the new grid wrapper
+    grid_wrapper = soup.new_tag('div', **{'class': 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12'})
+    
+    # Main column (span 8)
+    main_col = soup.new_tag('div', **{'class': 'lg:col-span-8'})
+    
+    # Sidebar column (span 4)
+    aside_col = soup.new_tag('aside', **{'class': 'lg:col-span-4 space-y-8'})
+    aside_col.append(new_content)
+    
+    # Move content_element into main_col
+    content_element.extract()
+    
+    # Optional: If content_element has max-w constraint that is too small, we might want to relax it?
+    # But usually keeping it is safe (just centered inside col-8).
+    # However, if content_element IS the wrapper we want to replace, we should perhaps extract its CHILDREN?
+    # Case: <div class="max-w-3xl">...</div>
+    # If we put this DIV inside col-8, it's fine.
+    
+    main_col.append(content_element)
+    
+    # Assemble grid
+    grid_wrapper.append(main_col)
+    grid_wrapper.append(aside_col)
+    
+    # Determine where to place the grid_wrapper
+    # If we found content_element via Fallback 2 (wrapper div), parent is likely body or a layout wrapper.
+    
+    # Logic to replace parent if parent was just a wrapper
+    # But now content_element MIGHT BE that wrapper.
+    
+    # If content_element was "main" or "div.max-w", we extracted it.
+    # So we should put grid_wrapper where content_element was.
+    
+    if parent:
+        # We can't use replace_with on extracted element.
+        # But we know where it was.
+        # Wait, if we extracted it, we lost the position?
+        # No, extract() removes it.
+        # We should have inserted grid_wrapper BEFORE extracting?
+        pass
+
+    # Better approach: Insert grid_wrapper before content_element, then move content_element inside.
+    # But we need to handle the case where we wanted to REPLACE content_element's parent?
+    
+    # Let's simplify:
+    # We put grid_wrapper exactly where content_element was.
+    # But if content_element was the ONLY child of a parent we wanted to replace...
+    
+    # Let's just append grid_wrapper to parent? No, order matters.
+    # We should use insert_after or insert_before?
+    # Actually, we can just append to parent if parent is body/main.
+    # But if parent has other siblings (header, footer), we need to maintain order.
+    
+    # Revert the extract logic slightly:
+    # 1. Create grid_wrapper.
+    # 2. Insert grid_wrapper after content_element.
+    # 3. Move content_element inside grid_wrapper -> main_col.
+    
+    # But wait, insert after requires content_element to be in tree.
+    # Yes.
+    
+    # But wait, if content_element has "mx-auto", it centers itself.
+    # If we put it in col-8, it centers in col-8.
+    
+    # Let's try this:
+    if parent:
+        # Check if parent is suitable for replacement (e.g. if content_element is the only significant child)
+        # But easier is just to swap content_element with grid_wrapper in the tree.
+        content_element.replace_with(grid_wrapper)
+        # Now content_element is detached.
+        main_col.append(content_element)
+        
+        # If content_element had classes like 'py-12', we might have doubled padding?
+        # grid_wrapper has 'py-12'. content_element might have 'py-12'.
+        # It's okay, a bit of extra padding is better than broken layout.
+        
+    return
+
 
 def generate_articles_index():
     """
@@ -733,10 +1080,8 @@ def run_build():
     for file_path in files_to_process:
         print(f"Processing {os.path.basename(file_path)}...")
         content = read_file(file_path)
-        try:
-            soup = BeautifulSoup(content, 'lxml')
-        except:
-            soup = BeautifulSoup(content, 'html.parser')
+        # Always use html.parser for consistency and to avoid lxml/encoding issues
+        soup = BeautifulSoup(content, 'html.parser')
         
         # --- A. Clean URLs & Absolute Paths ---
         process_links_in_soup(soup, file_path)
@@ -827,6 +1172,9 @@ def run_build():
         # --- C. Head Reorganization ---
         clean_path = get_clean_url(file_path)
         reorganize_head(soup, file_path, clean_path)
+
+        # --- C1. Inject Sidebar ---
+        inject_sidebar(soup, file_path)
 
         # --- C2. Breadcrumbs ---
         inject_breadcrumb(soup, file_path)

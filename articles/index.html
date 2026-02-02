@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html class="scroll-smooth" lang="zh-CN">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -11,74 +12,6 @@
 <link href="https://pokepayguide.top/articles/" hreflang="zh" rel="alternate"/>
 <link href="https://pokepayguide.top/articles/" hreflang="zh-CN" rel="alternate"/>
 <link href="https://pokepayguide.top/articles/" hreflang="x-default" rel="alternate"/>
-<link href="/favicon.png" rel="icon" type="image/png"/>
-<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#effef7',
-              100: '#dafeef',
-              200: '#b8fadd',
-              300: '#6ef0be',
-              400: '#34d399',
-              500: '#10b981', 
-              600: '#059669', // 主色调
-              700: '#047857',
-              800: '#065f46',
-              900: '#064e3b',
-              950: '#022c22',
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-          },
-          animation: {
-            'float-y': 'floatY 6s ease-in-out infinite',
-            'scroll': 'scroll 40s linear infinite',
-            'shimmer': 'shimmer 4s linear infinite',
-          },
-          keyframes: {
-            floatY: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' },
-            },
-            scroll: {
-              '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-50%)' },
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '200% 0' },
-              '100%': { backgroundPosition: '-200% 0' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-<style>
-    /* MASTER_CSS_START */
-    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
-    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
-    .hero-card-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
-    .hero-card-gradient::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); animation: shimmer 6s infinite; }
-    .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
-    .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
-    .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
-    .animate-blob { animation: blob 12s ease-in-out infinite; }
-    .animation-delay-2000 { animation-delay: 2s; }
-    .animate-bounce-slow { animation: bounce 3s infinite; }
-    @keyframes blob {
-      0% { transform: translate(0px, 0px) scale(1); }
-      33% { transform: translate(20px, -10px) scale(1.05); }
-      66% { transform: translate(-10px, 20px) scale(0.98); }
-      100% { transform: translate(0px, 0px) scale(1); }
-    }
-    /* MASTER_CSS_END */
-  </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -209,6 +142,74 @@
   ]
 }
 </script>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#effef7',
+              100: '#dafeef',
+              200: '#b8fadd',
+              300: '#6ef0be',
+              400: '#34d399',
+              500: '#10b981', 
+              600: '#059669', // 主色调
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          animation: {
+            'float-y': 'floatY 6s ease-in-out infinite',
+            'scroll': 'scroll 40s linear infinite',
+            'shimmer': 'shimmer 4s linear infinite',
+          },
+          keyframes: {
+            floatY: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            scroll: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '200% 0' },
+              '100%': { backgroundPosition: '-200% 0' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* MASTER_CSS_START */
+    body { background-color: #f8fafc; color: #0f172a; -webkit-font-smoothing: antialiased; }
+    .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+    .hero-card-gradient { background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%); box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; }
+    .hero-card-gradient::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); transform: skewX(-25deg); animation: shimmer 6s infinite; }
+    .float-icon-box { position: absolute; z-index: 20; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(241, 245, 249, 0.8); animation: float-y 5s ease-in-out infinite; }
+    .animate-text-shimmer { background: linear-gradient(90deg, #059669 0%, #34d399 25%, #059669 50%, #059669 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite; }
+    .mask-gradient { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+    .animate-blob { animation: blob 12s ease-in-out infinite; }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animate-bounce-slow { animation: bounce 3s infinite; }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(20px, -10px) scale(1.05); }
+      66% { transform: translate(-10px, 20px) scale(0.98); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    /* MASTER_CSS_END */
+  </style>
 </head>
 <body class="font-sans pb-24 md:pb-0 pt-20">
 <header class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 h-20 flex items-center border-b border-slate-200/60">
@@ -248,28 +249,27 @@
 <a class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-full hover:bg-slate-800 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 group overflow-hidden" href="/#tutorial"> <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span> <span class="relative">立即开卡</span> </a>
 </div>
 </div>
-</header>
-<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<nav aria-label="breadcrumb" class="py-3 bg-slate-50 border-b border-slate-100">
+</header><nav aria-label="breadcrumb" class="py-3 bg-slate-50 border-b border-slate-100 mt-20">
 <ol class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 text-xs text-slate-500">
 <li><a class="hover:text-emerald-600 transition" href="/">首页</a></li><li class="text-slate-300">/</li><li><a class="hover:text-emerald-600 transition" href="/articles">深度文章</a></li>
 </ol>
 </nav>
+<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
 <header class="text-center mb-16">
 <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">📚 所有教程 &amp; 指南</h1>
 <p class="text-slate-500">共收录 9 篇实战文章，助你玩转全球支付</p>
 </header>
-
 <div class="flex flex-wrap justify-center gap-2 mb-10" id="article-filters">
 <button class="filter-btn active px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-bold transition hover:opacity-90" data-filter="all">全部</button>
 <button class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-bold transition hover:border-emerald-500 hover:text-emerald-600" data-filter="充值指南">充值指南</button><button class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-bold transition hover:border-emerald-500 hover:text-emerald-600" data-filter="其他">其他</button><button class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-bold transition hover:border-emerald-500 hover:text-emerald-600" data-filter="新手入门">新手入门</button><button class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-bold transition hover:border-emerald-500 hover:text-emerald-600" data-filter="高阶玩法">高阶玩法</button>
 </div>
 <div class="grid md:grid-cols-2 gap-6" role="list">
-<article class="h-full article-item" data-category="充值指南">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-recharge-guide">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded flex items-center gap-1">
-                            充值指南
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.30</span>
 </div>
@@ -277,7 +277,6 @@
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">2026年最新PokePay充值教程。详解三种主流充值方式：USDT充值、线上银行转账及Wise汇款。解决PokePay怎么充值、如何入金等问题，助您轻松订阅ChatGPT Plus和海外消费。</p>
 </a>
 </article>
-
 <article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-kaopu-ma">
 <div class="flex items-center justify-between mb-4">
@@ -286,16 +285,15 @@
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">Pokepay 靠谱吗？会跑路吗？</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">Pokepay 靠谱吗？安全性深度评测</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">Pokepay靠谱吗？会跑路吗？本文从美国/香港金融牌照、资金隔离机制、用户实测反馈等多维度深度解析Pokepay的安全性。拒绝资金盘，选择合规虚拟卡。</p>
 </a>
 </article>
-
-<article class="h-full article-item" data-category="高阶玩法">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/how-to-bind-pokepay-to-alipay">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded flex items-center gap-1">
-                            高阶玩法
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
@@ -303,38 +301,35 @@
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">2026最新教程：如何将PokePay虚拟Visa卡绑定到支付宝。内含高清视频演示，手把手教你实现USDT日常消费，解决海外Visa卡绑定支付宝失败问题。</p>
 </a>
 </article>
-
-<article class="h-full article-item" data-category="充值指南">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-usdt-recharge">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded flex items-center gap-1">
-                            充值指南
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">PokePay 充值全攻略：2026 最新 USDT 入金安全指南</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">PokePay USDT 充值指南</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">2026年最新PokePay充值教程。详解如何通过欧易(OKX)购买纯净USDT并转账至PokePay虚拟卡，解决ChatGPT Plus、Netflix订阅及海外支付难题，资金安全防冻卡。</p>
 </a>
 </article>
-
-<article class="h-full article-item" data-category="高阶玩法">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-bind-paypal-chatgpt">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded flex items-center gap-1">
-                            高阶玩法
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">Pokepay绑定美区PayPal订阅 ChatGPT Plus 全流程</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">绑定美区 PayPal 订阅 ChatGPT Plus 教程</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">2026最新教程：手把手教你将Pokepay虚拟卡绑定美区PayPal，解决OpenAI风控拒付问题。通过美区Apple ID成功订阅ChatGPT Plus，含3DS验证详细指引。</p>
 </a>
 </article>
-
-<article class="h-full article-item" data-category="新手入门">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-virtual-card-guide">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded flex items-center gap-1">
-                            新手入门
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
@@ -342,7 +337,6 @@
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">2026最新Pokepay开卡教程：从注册、KYC认证到USDT充值全流程。实测绑定支付宝/微信消费，申请实体卡(Visa)全球取现。解决ChatGPT Plus、Midjourney支付被拒问题。</p>
 </a>
 </article>
-
 <article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/subscription-failure-checklist">
 <div class="flex items-center justify-between mb-4">
@@ -351,11 +345,10 @@
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">支付失败？Card Declined 终极排查</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">支付失败排查清单 (Checklist)</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">遇到Your card has been declined？Pokepay订阅ChatGPT、OnlyFans失败怎么办？从余额、IP节点、账单地址三个维度快速排查，提高支付成功率。</p>
 </a>
 </article>
-
 <article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/okx-usdt-topup-trc20">
 <div class="flex items-center justify-between mb-4">
@@ -364,24 +357,22 @@
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">Pokepay 怎么充值？USDT 充值保姆级教程</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">欧易 OKX USDT (TRC20) 充值指南</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">Pokepay怎么充值？详解从欧易OKX购买USDT并通过TRC20网络提币到Pokepay的完整流程。解决充值不到账、网络选择错误等问题。</p>
 </a>
 </article>
-
-<article class="h-full article-item" data-category="高阶玩法">
+<article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/how-to-subscribe-x-premium-with-pokepay">
 <div class="flex items-center justify-between mb-4">
-<span class="px-2 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded flex items-center gap-1">
-                            高阶玩法
+<span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded flex items-center gap-1">
+                            其他
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">PokePay 实战教程：3分钟搞定 X Premium (Twitter Blue) 订阅</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">如何使用 PokePay 订阅 X Premium (Twitter Blue)</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">手把手教你使用PokePay虚拟卡订阅X Premium (原Twitter Blue)。包含2026最新视频演示，解决推特蓝标认证支付失败问题，无需海外信用卡。</p>
 </a>
 </article>
-
 <article class="h-full article-item" data-category="其他">
 <a class="block bg-white p-6 rounded-2xl border border-slate-200 transition article-card group hover:shadow-lg hover:-translate-y-1" href="/articles/pokepay-fees-and-limits">
 <div class="flex items-center justify-between mb-4">
@@ -390,7 +381,7 @@
                         </span>
 <span class="text-xs text-slate-400 font-mono">2026.01.14</span>
 </div>
-<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">费用透明，拒绝隐藏收费</h3>
+<h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition line-clamp-2">pokepay-fees-and-limits.html</h3>
 <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">汇总Pokepay虚拟卡与实体卡的最新收费标准：开卡费、充值手续费、交易费率。明确单日消费限额与最低充值门槛。0月费、0管理费，费用透明无坑。</p>
 </a>
 </article>
@@ -398,7 +389,6 @@
 <div class="mt-12 flex justify-center gap-2" id="article-pagination">
 <!-- JS will populate this -->
 </div>
-
 </main>
 <footer class="bg-slate-950 text-slate-400 py-16 border-t border-emerald-900/30 relative overflow-hidden mt-20">
 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-900/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -479,7 +469,6 @@
 <a class="flex-1 flex items-center justify-center px-4 py-3 rounded-xl bg-brand-600 text-white font-bold text-sm shadow-lg" href="/#tutorial">立即开卡</a>
 </div>
 </nav>
-
 <script id="articles-logic">
         document.addEventListener('DOMContentLoaded', () => {
             const items = document.querySelectorAll('.article-item');
