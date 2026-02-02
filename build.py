@@ -828,25 +828,33 @@ def check_and_fix_articles():
             
         changed = False
         
-        # 1. Check Title Numbering
-        h1 = soup.find('h1')
-        if h1:
-            title_text = h1.get_text()
-            # Remove leading "1. ", "2. ", etc.
-            new_title = re.sub(r'^\d+\.?\s*', '', title_text)
-            if new_title != title_text:
-                # Determine if h1 has children tags (like span)
-                if h1.find(True): 
-                    # Complex h1 (e.g., with spans), try to clean the first text node if it's the number
-                    # This is tricky, simpler to just replace the text if it's plain text, 
-                    # or if it starts with a number, we might need manual handling.
-                    # For now, let's assume if we detected the pattern in get_text(), we can try to fix it carefully.
-                    # A safer approach for complex h1 is to only replace if it's pure text, 
-                    # or iterate contents.
-                    pass 
-                else:
-                    h1.string = new_title
-                    changed = True
+        # 1. Check Title Numbering (H1, H2, H3, H4)
+        for tag_name in ['h1', 'h2', 'h3', 'h4']:
+            tags = soup.find_all(tag_name)
+            for tag in tags:
+                if not tag.contents:
+                    continue
+                    
+                # Iterate to find the first text node to clean
+                for child in tag.contents:
+                    if isinstance(child, Comment):
+                        continue
+                    
+                    if isinstance(child, Tag):
+                        # If we hit a tag before finding text, we stop.
+                        # Assuming number is at the very start of the heading.
+                        break
+                    
+                    if isinstance(child, str):
+                        text = str(child)
+                        # Remove leading numbers (e.g., "1. ", " 2. ")
+                        new_text = re.sub(r'^\s*\d+\.?\s*', '', text)
+                        if new_text != text:
+                            child.replace_with(new_text)
+                            changed = True
+                        
+                        if text.strip():
+                            break
 
         # 2. Check JSON-LD for Date and Author
         schema_script = soup.find('script', type='application/ld+json')
@@ -891,6 +899,7 @@ def check_and_fix_articles():
         
         # 3. Inject Visible Metadata (Time/Author) after H1
         # Check if already exists
+        h1 = soup.find('h1')
         meta_exists = False
         if h1:
             next_sibling = h1.find_next_sibling()
