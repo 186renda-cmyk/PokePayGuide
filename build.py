@@ -381,8 +381,26 @@ def inject_breadcrumb(soup, file_path):
 
     # 1. Cleanup: Remove ALL existing breadcrumbs to prevent duplicates
     # Look for any nav with aria-label containing "breadcrumb" (case insensitive)
-    existing_crumbs = soup.find_all('nav', attrs={'aria-label': re.compile(r'breadcrumb', re.I)})
-    for crumb in existing_crumbs:
+    # Also check for class or id containing breadcrumb
+    breadcrumbs_to_remove = []
+    
+    # By aria-label
+    breadcrumbs_to_remove.extend(soup.find_all('nav', attrs={'aria-label': re.compile(r'breadcrumb', re.I)}))
+    
+    # By class
+    breadcrumbs_to_remove.extend(soup.find_all(class_=re.compile(r'breadcrumb', re.I)))
+    
+    # By id
+    breadcrumbs_to_remove.extend(soup.find_all(id=re.compile(r'breadcrumb', re.I)))
+
+    for crumb in breadcrumbs_to_remove:
+        # Avoid removing the newly created breadcrumb if we are running multiple times (though we shouldn't be)
+        # But we are in a fresh soup context so it's fine.
+        
+        # Check if it's a legitimate breadcrumb container
+        if crumb.name not in ['nav', 'div', 'ol', 'ul']:
+            continue
+            
         parent = crumb.parent
         crumb.decompose()
         
@@ -445,23 +463,20 @@ def inject_breadcrumb(soup, file_path):
     '''
     
     # Insert:
-    # 1. After fixed header (if exists)
-    # 2. Or at start of <main>
-    # 3. Or at start of <body> (after header)
+    # Priority: After fixed header
+    # Fallback: Top of body
     
     breadcrumb_tag = BeautifulSoup(html, 'html.parser')
     
-    main = soup.find('main')
-    if main:
-        main.insert(0, breadcrumb_tag)
-    else:
-        # Fallback: try to insert after header
-        # Use select_one for robust finding of fixed header
-        header = soup.select_one('header.fixed.top-0')
-        if header:
-            header.insert_after(breadcrumb_tag)
-        elif soup.body:
-            soup.body.insert(0, breadcrumb_tag)
+    # Try to insert after header (Best for visual layout)
+    header = soup.select_one('header.fixed.top-0')
+    if header:
+        header.insert_after(breadcrumb_tag)
+        return
+
+    # Fallback: Insert at top of body
+    if soup.body:
+        soup.body.insert(0, breadcrumb_tag)
 
 def ensure_body_padding(soup):
     """
